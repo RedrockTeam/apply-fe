@@ -5,12 +5,12 @@
         每人最多可以参加3个组织 同一组织可以报多个部门
     </p>
     <div class="btn">
-        <a v-link="{path: `/apply`}">
+        <a v-link="{path: '/apply'}">
           立即报名
         </a>
     </div>
     <div class="btn">
-        <a v-link="{path: `/about`}">
+        <a v-link="{path: '/about'}">
           了解组织
         </a>
     </div>
@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .container {
   position: absolute;
   width: 100%;
@@ -45,7 +45,7 @@ export default {
     margin-top: .15rem;
     margin-bottom: 0;
     text-align: center;
-    font-size: (30/64)rem;
+    font-size: .4rem;
     color: #c8b16d;
 }
 .btn {

@@ -4,7 +4,7 @@ import VueResource from 'vue-resource'
 
 import App from './App'
 import Apply from './components/apply/index'
-import About from './components/apply/index'
+import About from './components/about/index'
 
 Vue.config.debug = true;
 let Index = Vue.extend({});

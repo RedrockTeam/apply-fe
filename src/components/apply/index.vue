@@ -45,7 +45,7 @@ components: {
     overflow: hidden;
 }
 .area {
-    transform: translateX(-10rem);
+    transform: translateX(-20rem);
     transition: all .5s;
     width: 30rem;
 }

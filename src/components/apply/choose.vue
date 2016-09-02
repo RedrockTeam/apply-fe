@@ -7,7 +7,8 @@
     <section class="item-container">
         <div class="item" 
              v-for="choice in choices" 
-             transition="bounce">
+             transition="bounce"
+             enter="function () {console.log(123)}">
             <div class="close"
                  @click="close_item($index)">
                 
@@ -108,7 +109,7 @@ export default {
     padding: 0 .45rem;
     float: left;
     width: 10rem;
-    background-color: #ace;
+    // background-color: #ace;
 }
 p {
     margin: 0;
@@ -142,21 +143,23 @@ select {
     color: #473d1f;
 }
 .item-container {
+    transition: all .6s;
     margin-top: .5rem;
     min-height: 8rem;
     max-height: 10rem;
-    background-color: #acc;
-    overflow: scroll;
+    // background-color: #acc;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 .add-item {
+    transition: all .6s;
     width: 100%;
     padding: .2rem 0;
     text-align: center;
     font-size: .5rem;
     line-height: .5rem;
     color: #fd9d4f;
-    background-color: #ccc;
+    // background-color: #ccc;
     -webkit-tap-highlight-color: transparent;
     .add {
         display: inline-block;
@@ -230,6 +233,23 @@ select {
     }
 }
 
+@media (max-width: 320px) and (max-height: 420px) {
+    .item-container {
+        margin-top: .2rem;
+        min-height: 7rem;
+        max-height: 8rem;
+    }
+}
+//  iphone4 wx-webview  320 * 416
+
+@media (min-width: 360px) and (min-height: 580px) {
+    .item-container {
+        max-height: 11rem;
+    }
+}
+//  iphone6 wx-webview  375 * 603
+
+// 动画效果
 .bounce-transition {
     
 }
@@ -237,14 +257,11 @@ select {
     animation: bounce-in .6s;
 }
 .bounce-leave {
-    animation: bounce-out .6s;
+    // animation: bounce-out .6s;
 }
 @keyframes bounce-in {
     0% {
         transform: scale(0);
-    }
-    50% {
-        transform: scale(1.2);
     }
     100% {
         transform: scale(1);
@@ -253,12 +270,11 @@ select {
 @keyframes bounce-out {
     0% {
         transform: scale(1);
-    }
-    50% {
-        transform: scale(1.2);
+
     }
     100% {
         transform: scale(0);
     }
 }
+// 离开动画暂时不写
 </style>
