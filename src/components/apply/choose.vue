@@ -60,7 +60,7 @@ export default {
     data () {
         return {
             choices: [
-                {organization: '红岩网校工作站', apartment: 'Web研发部', removable: true}
+                {organization: '红岩网校工作站', apartment: 'Web研发部', removable: false}
             ],
             organizations: {
                 '红岩网校工作站': {
