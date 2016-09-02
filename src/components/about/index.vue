@@ -10,7 +10,7 @@
                 <a class="organizations-item" 
                    v-for="item in organization"
                    href="http://baidu.com">
-                    <img src="/static/logo-hy.png">
+                    <img src="{{item.img}}">
                     <span>{{item.organization}}</span>
                 </a>
             </div>         
@@ -37,19 +37,19 @@ export default {
         return {
             organizations: [
                 [
-                    {organization: '红岩网校工作站', img: '/static/logo-hy.png', src: ''},
-                    {organization: '红岩网校工作站', img: '', src: ''},
-                    {organization: '红岩网校工作站', img: '', src: ''}
+                    {organization: '红岩网校工作站', img: '/static/logo-hy.png', href: ''},
+                    {organization: '青年志愿者协会', img: '/static/logo-qx.png', href: ''},
+                    {organization: '团委', img: '/static/logo-tw.png', href: ''}
                 ],
                 [
-                    {organization: '红岩网校工作站', img: '', src: ''},
-                    {organization: '红岩网校工作站', img: '', src: ''},
-                    {organization: '红岩网校工作站', img: '', src: ''}
+                    {organization: '科技联合会', img: '/static/logo-kl.png', href: ''},
+                    {organization: '勤工助学中心', img: '/static/logo-qg.png', href: ''},
+                    {organization: '社团联合会', img: '/static/logo-sl.png', href: ''}
                 ],
                 [
-                    {organization: '红岩网校工作站', img: '', src: ''},
-                    {organization: '红岩网校工作站', img: '', src: ''},
-                    {organization: '红岩网校工作站', img: '', src: ''}
+                    {organization: '大学生艺术团', img: '/static/logo-dyt.png', href: ''},
+                    {organization: '学生会', img: '/static/logo-xsh.png', href: ''},
+                    {organization: '宿管会', img: '/static/logo-sgh.png', href: ''}
                 ]
             ]
         }
