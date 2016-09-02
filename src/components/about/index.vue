@@ -18,10 +18,14 @@
 
         <div class="btn-container">
             <div class="btn">
-                返回
+                <a v-link="{path: '/app'}">
+                  返回
+                </a>
             </div>
             <div class="btn">
-                去报名
+                <a v-link="{path: '/apply'}">
+                  去报名
+                </a>
             </div>
         </div>
     </section>
@@ -33,7 +37,7 @@ export default {
         return {
             organizations: [
                 [
-                    {organization: '红岩网校工作站', img: '', src: ''},
+                    {organization: '红岩网校工作站', img: '/static/logo-hy.png', src: ''},
                     {organization: '红岩网校工作站', img: '', src: ''},
                     {organization: '红岩网校工作站', img: '', src: ''}
                 ],
@@ -54,17 +58,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-p {
-    margin: 0;
-}
-a, div, img, span {
-    margin: 0;
-    padding: 0;
-}
-a {
-    text-decoration: none;
-    -webkit-tap-highlight-color: transparent;
-}
 .title {
     margin-top: .5rem;
     letter-spacing: .05rem;
@@ -136,6 +129,12 @@ a {
     }
     .btn:last-of-type {
         float: right;
+    }
+    a {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        color: #fff;
     }
 }
 </style>

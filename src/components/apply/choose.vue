@@ -105,6 +105,7 @@ export default {
             this.applyData.current_step = 1;
         },
         next_step () {
+            this.applyData.student_org = this.choices;
             this.applyData.current_step = 3;
         }
     }
@@ -112,9 +113,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-input, a, label, select, .btn {
-    -webkit-tap-highlight-color: transparent;
-}
 .choose {
     transition: all .6s;
     box-sizing: border-box;
@@ -122,15 +120,8 @@ input, a, label, select, .btn {
     float: left;
     width: 10rem;
 }
-p {
-    margin: 0;
-}
-input, select {
-    -webkit-tap-highlight-color: transparent;
-    outline: none;
-    border: none;
-}
 select {
+    padding-left: .2rem;
     appearance: button;
     box-sizing: border-box;
     margin: 0;
@@ -157,7 +148,7 @@ select {
     transition: all .6s;
     margin-top: .5rem;
     min-height: 8rem;
-    max-height: 10rem;
+    max-height: 11rem;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -221,6 +212,7 @@ select {
     margin-top: 0;
 }
 .btn-container {
+    margin-top: .5rem;
     padding: 0 .5rem;
     .btn {
         display: inline-block;
@@ -246,7 +238,7 @@ select {
     .item-container {
         margin-top: .2rem;
         min-height: 7rem;
-        max-height: 8rem;
+        max-height: 8.5rem;
     }
 }
 //  iphone4 wx-webview  320 * 416

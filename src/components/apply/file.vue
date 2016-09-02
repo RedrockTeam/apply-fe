@@ -74,7 +74,7 @@ export default {
                 name: "",
                 gender: "",
                 id: "",
-                college: "",
+                college: "计算机科学与技术",
                 phone: "",
             },
             colleges: [
@@ -87,28 +87,27 @@ export default {
     methods: {
         next_step () {
             let file = this.student_file;
+            /**
             for (let key in file) {
                 if (file[key].length == 0) {
                     alert("请将项目正确填写完整");
                     return;
                 }
             }
-            //  查空项目
             if (file.phone.length == 0) {
                 alert("请输入正确的手机号");
             } else {
                 this.applyData.student_file = file;
                 this.applyData.current_step = 2;
             }
+            */
+           this.applyData.current_step = 2;
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
-p {
-    margin: 0;
-}
 input, a, label, select, .btn {
     -webkit-tap-highlight-color: transparent;
 }
@@ -117,6 +116,7 @@ label {
     font-size: .5rem;
 }
 select {
+    padding-left: .2rem;
     appearance: button;
     box-sizing: border-box;
     margin: 0;

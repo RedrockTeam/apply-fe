@@ -5,7 +5,7 @@
                 完成
             </p>
             <p class="remain">
-                你还可以报<span>1</span>个组织
+                你还可以报<span> {{3 - applyData.student_org.length}} </span>个组织
             </p>
         </div>
         <p class="notify">
@@ -17,7 +17,7 @@
             </a>
         </div>
         <div class="btn">
-            <a v-link="{path: '/about'}">
+            <a v-link="{path: '/app'}">
               退出
             </a>
         </div>
@@ -26,15 +26,13 @@
 
 <script>
 export default {
-  
+    props: [
+        'applyData'
+    ]
 }
 </script>
 
 <style lang="less" scoped>
-p {
-    margin: 0;
-    padding: 0;
-}
 .finish {
     float: left;
     width: 10rem;
