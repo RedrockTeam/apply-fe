@@ -1,16 +1,18 @@
 <template>
   <section class="progress">
-    <div class="block"></div>
-    <div class="circle"></div>
-    <div class="block"></div>
-    <div class="circle"></div>
-    <div class="block"></div>
+    <div class="block finish"></div>
+    <div class="circle finish"></div>
+    <div v-bind:class="{'block': true, 'finish': applyData.current_step > 1}"></div>
+    <div v-bind:class="{'circle': true, 'finish': applyData.current_step > 1}"></div>
+    <div v-bind:class="{'block': true, 'finish': applyData.current_step > 2}"></div>
   </section>
 </template>
 
 <script>
 export default {
-  
+    props: [
+        'applyData'
+    ]
 }
 </script>
 

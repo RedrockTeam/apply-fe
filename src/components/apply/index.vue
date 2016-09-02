@@ -1,10 +1,10 @@
 <template>
   <section class="apply">
-    <Progress></Progress>
-    <div class="area">
-        <File></File>
-        <Choose></Choose>
-        <Finish></Finish>
+    <Progress :apply-data.sync="applyData"></Progress>
+    <div v-bind:class="{'area': true, 'area-step-two': applyData.current_step == 2, 'area-step-three': applyData.current_step == 3}">
+        <File :apply-data.sync="applyData"></File>
+        <Choose :apply-data.sync="applyData"></Choose>
+        <Finish :apply-data.sync="applyData"></Finish>
     </div>
   </section>
 </template>
@@ -16,15 +16,19 @@ import Choose from './choose'
 import Finish from './finish'
 
 export default {
-components: {
-    Progress,
-    File,
-    Choose,
-    Finish
-},
+    components: {
+        Progress,
+        File,
+        Choose,
+        Finish
+    },
     data () {
         return {
-
+            applyData: {
+                current_step: 1,
+                student_file: {},
+                student_org: []
+            }
         }
     },
     methods: {
@@ -45,8 +49,14 @@ components: {
     overflow: hidden;
 }
 .area {
-    transform: translateX(-20rem);
+    transform: translateX(0rem);
     transition: all .5s;
     width: 30rem;
+}
+.area-step-two {
+    transform: translateX(-10rem);
+}
+.area-step-three {
+    transform: translateX(-20rem);
 }
 </style>

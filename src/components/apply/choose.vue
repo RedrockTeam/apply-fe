@@ -7,11 +7,10 @@
     <section class="item-container">
         <div class="item" 
              v-for="choice in choices" 
-             transition="bounce"
-             enter="function () {console.log(123)}">
+             transition="bounce">
             <div class="close"
-                 @click="close_item($index)">
-                
+                 @click="close_item($index)"
+                 v-show="choice.removable">
             </div>
             <p class="wrapper">
                 <span>组织</span>
@@ -43,10 +42,10 @@
     </section>
 
     <div class="btn-container">
-        <div class="btn">
+        <div class="btn" @touchend="prev_step">
             上一步
         </div>
-        <div class="btn">
+        <div class="btn" @touchend="next_step">
             确认
         </div>
     </div>
@@ -55,10 +54,13 @@
 
 <script>
 export default {
+    props: [
+        'applyData'
+    ],
     data () {
         return {
             choices: [
-                {organization: '红岩网校工作站', apartment: 'Web研发部'}
+                {organization: '红岩网校工作站', apartment: 'Web研发部', removable: true}
             ],
             organizations: {
                 '红岩网校工作站': {
@@ -91,25 +93,34 @@ export default {
         add_item () {
             let data = {
                 organization: '红岩网校工作站', 
-                apartment: 'Web研发部'
+                apartment: 'Web研发部',
+                removable: true
             };
             this.choices.push(data)
         },
         close_item (index) {
             this.choices.splice(index, 1);
+        },
+        prev_step () {
+            this.applyData.current_step = 1;
+        },
+        next_step () {
+            this.applyData.current_step = 3;
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
+input, a, label, select, .btn {
+    -webkit-tap-highlight-color: transparent;
+}
 .choose {
     transition: all .6s;
     box-sizing: border-box;
     padding: 0 .45rem;
     float: left;
     width: 10rem;
-    // background-color: #ace;
 }
 p {
     margin: 0;
@@ -147,7 +158,6 @@ select {
     margin-top: .5rem;
     min-height: 8rem;
     max-height: 10rem;
-    // background-color: #acc;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -159,7 +169,6 @@ select {
     font-size: .5rem;
     line-height: .5rem;
     color: #fd9d4f;
-    // background-color: #ccc;
     -webkit-tap-highlight-color: transparent;
     .add {
         display: inline-block;

@@ -8,7 +8,7 @@
         <span>姓名</span>
         <input type="text" 
                class="input-text" 
-               v-model="name">
+               v-model="student_file.name">
     </p>
     <p class="item">
         <span>性别</span>
@@ -17,13 +17,13 @@
                class="input-radio" 
                id="male" 
                value="男" 
-               v-model="gender">
+               v-model="student_file.gender">
             <label for="male">男</label>
             <input type="radio" 
                    class="input-radio" 
                    id="female" 
                    value="女" 
-                   v-model="gender">
+                   v-model="student_file.gender">
             <label for="female">女</label>
         </span>
     </p>
@@ -31,11 +31,11 @@
         <span>学号</span>
         <input type="tel" 
                class="input-text" 
-               v-model="id">
+               v-model="student_file.id">
     </p>
     <p class="item">
         <span>学院</span>
-        <select v-model="college">
+        <select v-model="student_file.college">
             <option v-for="option in colleges" 
                     v-bind:value="option.value">
                 {{option.text}}
@@ -46,14 +46,17 @@
         <span>手机</span>
         <input type="tel" 
                class="input-text" 
-               v-model="phone">
+               v-model="student_file.phone">
     </p>
     
     <div class="btn-container">
         <div class="btn">
-            返回
+            <a v-link="{path: '/app'}">
+                返回
+            </a>
         </div>
-        <div class="btn">
+        <div class="btn" 
+             @touchend="next_step">
             下一步
         </div>
     </div>
@@ -62,20 +65,43 @@
 
 <script>
 export default {
-  data () {
-    return {
-        name: "",
-        gender: "",
-        id: "",
-        college: "",
-        phone: "",
-        colleges: [
-            { text: '计算机科学与技术', value: '计算机科学与技术' },
-            { text: '传媒', value: '传媒' },
-            { text: '通信', value: '通信' }
-        ]
+    props: [
+        'applyData'
+    ],
+    data () {
+        return {
+            student_file: {
+                name: "",
+                gender: "",
+                id: "",
+                college: "",
+                phone: "",
+            },
+            colleges: [
+                { text: '计算机科学与技术', value: '计算机科学与技术' },
+                { text: '传媒', value: '传媒' },
+                { text: '通信', value: '通信' }
+            ]
+        }
+    },
+    methods: {
+        next_step () {
+            let file = this.student_file;
+            for (let key in file) {
+                if (file[key].length == 0) {
+                    alert("请将项目正确填写完整");
+                    return;
+                }
+            }
+            //  查空项目
+            if (file.phone.length == 0) {
+                alert("请输入正确的手机号");
+            } else {
+                this.applyData.student_file = file;
+                this.applyData.current_step = 2;
+            }
+        }
     }
-  }
 }
 </script>
 
@@ -83,7 +109,7 @@ export default {
 p {
     margin: 0;
 }
-input, a, label, select {
+input, a, label, select, .btn {
     -webkit-tap-highlight-color: transparent;
 }
 label {
@@ -169,6 +195,7 @@ input[type=radio]:checked + label:before {
 }
 .btn-container {
     padding: 0 .5rem;
+    margin-top: 1rem;
     .btn {
         display: inline-block;
         width: 3.7rem;
@@ -180,6 +207,12 @@ input[type=radio]:checked + label:before {
         letter-spacing: .2rem;
         background: url('/static/btn-small.png') no-repeat 100% 100%;
         background-size: cover;
+        a {
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: #fff;
+        }
     }
     .btn:first-of-type {
         float: left;
