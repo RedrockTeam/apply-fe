@@ -14,7 +14,9 @@
             </div>
             <p class="wrapper">
                 <span>组织</span>
-                <select v-model="choice.organization">
+                <select v-model="choice.organization" 
+                        @change="confirm_organization($index)">
+                    <option disabled="disabled">请选择组织</option>
                     <option v-for="organization in organizations" 
                             v-bind:value="organization.value">
                         {{organization.value}}
@@ -24,16 +26,17 @@
             <p class="wrapper">
                 <span>部门</span>
                 <select v-model="choice.apartment">
+                    <option disabled="disabled">请选择部门</option>
                     <option v-for="apartment in apartments[choice.organization]"
-                            v-bind:value="apartment">
+                            v-bind:value="apartment"
+                            @change="confirm_apartment($index)">
                         {{apartment}}
                     </option>
                 </select>
             </p>
         </div>
         <div class="add-item" 
-             @click="add_item"
-             v-show="3 - choices.length">
+             @click="add_item">
             <div class="add">
                 
             </div>
@@ -49,34 +52,65 @@
             确认
         </div>
     </div>
+
+    <div class="cover" v-show="show_cover">
+        
+    </div>
   </section>
 </template>
 
 <script>
+/**
+ *  HMP 改需求 需要三个不同的组织
+ *  每个组织不能报相同的部门
+ */
 export default {
     props: [
         'applyData'
     ],
     data () {
         return {
+            show_cover: false,
             choices: [
-                {organization: '红岩网校工作站', apartment: 'Web研发部', removable: false}
+                {
+                    organization: '请选择组织', 
+                    apartment: '请选择部门', 
+                    removable: true
+                }
             ],
             organizations: {
-                '红岩网校工作站': {
-                    value: '红岩网校工作站'
+                '校学生会': {
+                    value: '校学生会'
                 },
                 '学生科技联合会': {
                     value: '学生科技联合会'
+                },
+                '学生社团联合会': {
+                    value: '学生社团联合会'
+                },
+                '青年志愿者协会': {
+                    value: '青年志愿者协会'
+                },
+                '红岩网校工作站': {
+                    value: '红岩网校工作站'
+                },
+                '大学生艺术团': {
+                    value: '大学生艺术团'
+                },
+                '团委各部室': {
+                    value: '团委各部室'
                 }
             },
             apartments: {
-                '红岩网校工作站': [
-                    'Web研发部',
-                    '视觉设计部',
-                    '移动开发部',
-                    '产品运营部',
-                    '运维安全部'
+                '校学生会': [
+                    '综合部',
+                    '学习部',
+                    '宣传部',
+                    '权益提案部',
+                    '生活服务部',
+                    '文艺部',
+                    '体育部',
+                    '女生部'
                 ],
                 '学生科技联合会': [
                     '综合部',
@@ -85,15 +119,89 @@ export default {
                     '科技人文部',
                     '媒体运营部',
                     '信息部'
+                ],
+                '学生社团联合会': [
+                    '综合部',
+                    '宣传部',
+                    '社团服务部',
+                    '社团活动部'
+                ],
+                '青年志愿者协会': [
+                    '综合管理部',
+                    '青年志愿者服务总队',
+                    '实践服务服务部',
+                    '宣传推广部'
+                ],
+                '红岩网校工作站': [
+                    '产品策划部',
+                    '视觉设计部',
+                    'Web研发部',
+                    '产品运营部',
+                    '移动开发部',
+                    '运维安全部'
+                ],
+                '大学生艺术团': [
+                    '综合部',
+                    '管乐团',
+                    '舞蹈团',
+                    '民乐团',
+                    '合唱团',
+                    '话剧团'
+                ],
+                '团委各部室': [
+                    '团委办公室',
+                    '团委组织部',
+                    '团委宣传部'
                 ]
             }
         }
     },
     methods: {
+        confirm_organization (index) {
+            let len = 0,
+                chosen_norepeat = [];
+
+            let chosen = this.choices.map((item, index) => {
+                let _org = item.organization;
+                if (_org != "请选择组织") {
+                    return _org;
+                }
+            }); 
+
+            let _drop_repeat = function (array) {
+                let n = {}, 
+                    r = [], 
+                    len = array.length, 
+                    val, 
+                    type;
+                for (let i = 0; i < array.length; i++) {
+                    val = array[i];
+                    type = typeof val;
+                    if (!n[val]) {
+                        n[val] = [type];
+                        r.push(val);
+                    } else if (n[val].indexOf(type) < 0) {
+                        n[val].push(type);
+                        r.push(val);
+                    }
+                }
+                return r;     
+            }
+            chosen_norepeat = _drop_repeat(chosen);
+            len = chosen_norepeat.length;
+            if (len > 3) {
+                console.log("最多只能选择三个组织");
+                this.show_cover = true;
+                this.choices[index].organization = '请选择组织'
+            }
+        },
+        confirm_apartment (index) {
+
+        },
         add_item () {
             let data = {
-                organization: '红岩网校工作站', 
-                apartment: 'Web研发部',
+                organization: '请选择组织', 
+                apartment: '请选择部门',
                 removable: true
             };
             this.choices.push(data)
@@ -113,6 +221,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.cover {
+    transition: all .6s;
+    position: absolute;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, .5);
+    width: 100%;
+    height: 20rem;
+    top: -2rem;
+    left: 0;
+    bottom: 0;
+}
 .choose {
     transition: all .6s;
     box-sizing: border-box;
@@ -148,7 +267,7 @@ select {
     transition: all .6s;
     margin-top: .5rem;
     min-height: 8rem;
-    max-height: 11rem;
+    max-height: 10rem;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }

@@ -10,7 +10,7 @@
                 <a class="organizations-item" 
                    v-for="item in organization"
                    href="http://baidu.com">
-                    <img src="{{item.img}}">
+                    <img v-bind:src="item.img">
                     <span>{{item.organization}}</span>
                 </a>
             </div>         
