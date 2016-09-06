@@ -25,11 +25,11 @@
             </p>
             <p class="wrapper">
                 <span>部门</span>
-                <select v-model="choice.apartment">
+                <select v-model="choice.apartment"
+                        @change="confirm_apartment($index)">
                     <option disabled="disabled">请选择部门</option>
                     <option v-for="apartment in apartments[choice.organization]"
-                            v-bind:value="apartment"
-                            @change="confirm_apartment($index)">
+                            v-bind:value="apartment">
                         {{apartment}}
                     </option>
                 </select>
@@ -48,22 +48,51 @@
         <div class="btn" @touchend="prev_step">
             上一步
         </div>
-        <div class="btn" @touchend="next_step">
+        <div class="btn" @touchend="show_submit_cover">
             确认
         </div>
     </div>
 
     <div class="cover" v-show="show_cover">
-        
+        <div class="notify-container">
+            <div class="close" 
+                 @click="close_show_cover">
+                
+            </div>
+            <p class="cover-title">提示</p>
+            <p class="cover-notify">
+                {{cover_notify}}
+            </p>
+        </div>
     </div>
+
+    <div class="cover cover-submit" v-show="submit_cover">
+        <div class="notify-container">
+            <div class="close" 
+                 @click="close_submit_cover">
+                
+            </div>
+            <p class="cover-title">提示</p>
+            <p class="cover-notify">
+                请输入身份证后六位确认提交
+            </p>
+            <input type="password" 
+               class="input-text"
+               v-model="verify">
+            <p class="cover-notify">
+                信息提交后不可修改
+            </p>
+            <div class="btn" 
+                 @click="next_step">
+                确认提交
+            </div>
+        </div>
+    </div>    
+
   </section>
 </template>
 
 <script>
-/**
- *  HMP 改需求 需要三个不同的组织
- *  每个组织不能报相同的部门
- */
 export default {
     props: [
         'applyData'
@@ -71,6 +100,9 @@ export default {
     data () {
         return {
             show_cover: false,
+            submit_cover: false,
+            cover_notify: '选择出现了一些偏差',
+            verify: '',
             choices: [
                 {
                     organization: '请选择组织', 
@@ -190,13 +222,47 @@ export default {
             chosen_norepeat = _drop_repeat(chosen);
             len = chosen_norepeat.length;
             if (len > 3) {
-                console.log("最多只能选择三个组织");
+                this.choices.splice(index, 1);
+                this.cover_notify = '最多选择三个组织';
                 this.show_cover = true;
-                this.choices[index].organization = '请选择组织'
             }
         },
         confirm_apartment (index) {
+            let chosen_norepeat = [];
 
+            let chosen = this.choices.map((item, index) => {
+                let _org = item.organization,
+                    _apt = item.apartment;
+                if (_org != "请选择组织" && _apt != "请选择部门") {
+                    return _org + _apt;
+                }
+            }); 
+
+            let _drop_repeat = function (array) {
+                let n = {}, 
+                    r = [], 
+                    len = array.length, 
+                    val, 
+                    type;
+                for (let i = 0; i < array.length; i++) {
+                    val = array[i];
+                    type = typeof val;
+                    if (!n[val]) {
+                        n[val] = [type];
+                        r.push(val);
+                    } else if (n[val].indexOf(type) < 0) {
+                        n[val].push(type);
+                        r.push(val);
+                    }
+                }
+                return r;     
+            }
+            chosen_norepeat = _drop_repeat(chosen);
+            if (chosen.length != chosen_norepeat.length) {
+                this.choices.splice(index, 1);
+                this.cover_notify = '不能重复选择';
+                this.show_cover = true;
+            }
         },
         add_item () {
             let data = {
@@ -209,10 +275,21 @@ export default {
         close_item (index) {
             this.choices.splice(index, 1);
         },
+        close_show_cover () {
+            this.show_cover = false;
+            this.cover_notify = '';
+        },
+        close_submit_cover () {
+            this.submit_cover = false;
+        },
+        show_submit_cover () {
+            this.submit_cover = true;
+        },
         prev_step () {
             this.applyData.current_step = 1;
         },
         next_step () {
+            // this.submit_cover = false;
             this.applyData.student_org = this.choices;
             this.applyData.current_step = 3;
         }
@@ -226,11 +303,74 @@ export default {
     position: absolute;
     z-index: 100;
     background-color: rgba(0, 0, 0, .5);
-    width: 100%;
+    width: 10rem;
     height: 20rem;
     top: -2rem;
-    left: 0;
+    left: 10rem;
     bottom: 0;
+    .notify-container {
+        position: absolute;
+        box-sizing: border-box;
+        width: 8rem;
+        height: 3rem;
+        top: 6rem;
+        left: 50%;
+        margin-left: -4rem;
+        padding: .3rem 0rem;
+        border-radius: .1rem;
+        background-color: #fffef5;
+        text-align: center;
+        font-size: .45rem;
+    }
+    .cover-title {
+        color: #f58604; 
+        font-size: .5rem;
+        margin-bottom: .5rem;       
+    }
+    .cover-notify {
+        margin-bottom: .1rem;
+    }
+    .close {
+        position: absolute;
+        top: .1rem;
+        right: .15rem;
+        width: .5rem;
+        height: .5rem;
+        background: url('/static/close.png') no-repeat 100% 100%;
+        background-size: cover;
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+.cover-submit {
+    .notify-container {
+        height: 6.5rem;
+        top: 4rem;
+    }
+    .input-text {
+        box-sizing: border-box;
+        margin: .2rem 0 .6rem 0;
+        padding: 0 .2rem;
+        background-color: #eee;
+        width: 6rem;
+        height: 1rem;
+        line-height: .8rem;
+        font-size: .5rem;
+        border: none;
+        border-radius: .15rem;
+        outline: none;
+        text-align: center;
+    }
+    .btn {
+        display: inline-block;
+        width: 3rem;
+        height: 1.1rem;
+        line-height: 1rem;
+        text-align: center;
+        color: #fff;
+        font-size: .5rem;
+        background: url('/static/btn-small.png') no-repeat 100% 100%;
+        background-size: cover;
+    }
 }
 .choose {
     transition: all .6s;
@@ -352,6 +492,7 @@ select {
         float: right;
     }
 }
+
 
 @media (max-width: 320px) and (max-height: 420px) {
     .item-container {
