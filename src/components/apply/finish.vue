@@ -28,7 +28,10 @@
 export default {
     props: [
         'applyData'
-    ]
+    ],
+    ready () {
+        //  用 localStorage 存数据
+    }
 }
 </script>
 

@@ -69,7 +69,8 @@
     <div class="cover cover-submit" v-show="submit_cover">
         <div class="notify-container">
             <div class="close" 
-                 @click="close_submit_cover">
+                 @click="close_submit_cover"
+                 v-show="!is_submiting">
                 
             </div>
             <p class="cover-title">提示</p>
@@ -80,10 +81,10 @@
                class="input-text"
                v-model="verify">
             <p class="cover-notify">
-                信息提交后不可修改
+                {{submit_notify}}
             </p>
             <div class="btn" 
-                 @click="next_step">
+                 @click="confirm_submit">
                 确认提交
             </div>
         </div>
@@ -99,8 +100,18 @@ export default {
     ],
     data () {
         return {
+            /**
+             *  show_cover 是否显示遮罩层（提示选择组织有错误的）
+             *  submit_cover 是否显示遮罩层（提交输入密码的）
+             *  is_submiting 正在提交状态 阻止用户在发送请求的时候进行操作
+             *  submit_notify 提交时候显示的提示消息
+             *  cover_notify 选择有误时的提示消息
+             *  verify => pass
+             */
             show_cover: false,
             submit_cover: false,
+            is_submiting: false,
+            submit_notify: '信息提交后不可修改',
             cover_notify: '选择出现了一些偏差',
             verify: '',
             choices: [
@@ -282,15 +293,26 @@ export default {
         },
         close_submit_cover () {
             this.submit_cover = false;
+            this.submit_notify = '信息提交后不可修改';
         },
         show_submit_cover () {
             this.submit_cover = true;
+        },
+        confirm_submit () {
+            if (!this.is_submiting) {
+                this.is_submiting = true;
+                this.submit_notify = '正在提交 请稍等';
+                /**
+                 *  发个请求 失败了的话更改 notify 内容 并且将 close 按钮改为可见状态
+                 *  成功就执行下一步
+                 *  下一步的 ready 时候 localStorage 缓存报名信息
+                 */
+            }
         },
         prev_step () {
             this.applyData.current_step = 1;
         },
         next_step () {
-            // this.submit_cover = false;
             this.applyData.student_org = this.choices;
             this.applyData.current_step = 3;
         }

@@ -18,7 +18,7 @@
         </p>
         
         <p class="notify" v-show="show_notify">
-            姓名与学号不匹配
+            {{notify}}
         </p>
 
         <div class="btn-container">
@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="btn" 
-                 @touchend="next_step">
+                 @touchend="check_file">
                 下一步
             </div>
         </div>
@@ -46,10 +46,14 @@ export default {
                 name: "",
                 id: ""
             },
-            show_notify: true
+            show_notify: true,
+            notify: ''
         }
     },
     methods: {
+        check_file () {
+            this.notify = '姓名与学号不匹配';
+        },
         next_step () {
             let file = this.student_file;
             this.applyData.student_file = this.student_file;
@@ -99,6 +103,7 @@ export default {
     .notify {
         margin-left: 1.6rem;
         line-height: 1rem;
+        height: 1rem;
         color: #816b41;
         font-size: .45rem;
     }
