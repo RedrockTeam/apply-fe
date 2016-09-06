@@ -27,7 +27,8 @@ export default {
             applyData: {
                 current_step: 1,
                 student_file: {},
-                student_org: []
+                student_org: [],
+                remain_org: 3
             }
         }
     },

@@ -5,7 +5,7 @@
                 完成
             </p>
             <p class="remain">
-                你还可以报<span> {{3 - applyData.student_org.length}} </span>个组织
+                你还可以报<span> {{applyData.remain_org}} </span>个组织
             </p>
         </div>
         <p class="notify">

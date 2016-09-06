@@ -221,6 +221,7 @@ export default {
             }
             chosen_norepeat = _drop_repeat(chosen);
             len = chosen_norepeat.length;
+            this.applyData.remain_org = 3 - len;
             if (len > 3) {
                 this.choices.splice(index, 1);
                 this.cover_notify = '最多选择三个组织';
