@@ -5,6 +5,7 @@ import VueResource from 'vue-resource'
 import App from './App'
 import Apply from './components/apply/index'
 import About from './components/about/index'
+import Check from './components/check/index'
 
 Vue.config.debug = true;
 let Index = Vue.extend({});
@@ -23,6 +24,9 @@ router.map({
     },
     '/about': {
         component: About
+    },
+    '/check': {
+        component: Check
     }
 });
 

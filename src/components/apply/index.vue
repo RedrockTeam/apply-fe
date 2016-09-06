@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import  Progress from "./progress"
+import Progress from "./progress"
 import File from "./file"
 import Choose from './choose'
 import Finish from './finish'

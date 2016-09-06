@@ -9,10 +9,17 @@
           立即报名
         </a>
     </div>
-    <div class="btn">
-        <a v-link="{path: '/about'}">
-          了解组织
-        </a>
+    <div class="btn-container">
+        <div class="btn">
+            <a v-link="{path: '/about'}">
+                了解组织
+            </a>
+        </div>
+        <div class="btn">
+            <a v-link="{path: '/check'}">
+                查询状态
+            </a>
+        </div>
     </div>
   </section>
 </template>
@@ -49,7 +56,7 @@ export default {
     color: #c8b16d;
 }
 .btn {
-    margin: .85rem auto 0 auto;
+    margin: 1rem auto 0 auto;
     width: 8.5rem;
     height: 1.45rem;
     background: url(/static/btn-big.png) no-repeat 100% 100%;
@@ -65,6 +72,33 @@ export default {
         color: #fff;
         letter-spacing: .05rem;
         -webkit-tap-highlight-color: transparent;
+    }
+}
+.btn-container {
+    padding: 0 .75rem;
+    .btn {
+        display: inline-block;
+        width: 3.7rem;
+        height: 1.35rem;
+        line-height: 1.3rem;
+        text-align: center;
+        color: #fff;
+        font-size: .5rem;
+        letter-spacing: .2rem;
+        background: url('/static/btn-small.png') no-repeat 100% 100%;
+        background-size: cover;
+        a {
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+    .btn:first-of-type {
+        float: left;
+    }
+    .btn:last-of-type {
+        float: right;
     }
 }
 
