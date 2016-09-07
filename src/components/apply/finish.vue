@@ -29,8 +29,19 @@ export default {
     props: [
         'applyData'
     ],
-    ready () {
-        //  用 localStorage 存数据
+    detached () {
+        let data = {},
+            data_str = '';
+        
+        data.student_file = this.applyData.student_file;
+        data.student_org = this.applyData.student_org;
+        data_str = JSON.stringify(data);
+
+        localStorage.setItem('apply_CQUPT', data_str);
+        /**
+         *  在关闭页面之前调用
+         *  报名成功后将数据存到 localStorage 
+         */
     }
 }
 </script>

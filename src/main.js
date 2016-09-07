@@ -13,6 +13,12 @@ let Index = Vue.extend({});
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
+// Vue.http.options.headers={
+//     'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+// };
+Vue.http.options.emulateJSON = true;
+// Vue.http.headers.common['Access-Control-Allow-Origin'] = '*';
+
 let router = new VueRouter();
 
 router.map({

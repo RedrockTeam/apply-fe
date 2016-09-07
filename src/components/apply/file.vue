@@ -31,11 +31,12 @@
         <span>学号</span>
         <input type="tel" 
                class="input-text" 
-               v-model="student_file.id">
+               v-model="student_file.code">
     </p>
     <p class="item">
         <span>学院</span>
         <select v-model="student_file.college">
+            <option disabled="disabled">请选择学院</option>
             <option v-for="option in colleges" 
                     v-bind:value="option.value">
                 {{option.text}}
@@ -46,7 +47,7 @@
         <span>手机</span>
         <input type="tel" 
                class="input-text" 
-               v-model="student_file.phone">
+               v-model="student_file.contact">
     </p>
     
     <div class="btn-container">
@@ -79,6 +80,12 @@
 
 <script>
 export default {
+    ready () {
+        if (localStorage.apply_CQUPT) {
+            let data = JSON.parse(localStorage.apply_CQUPT);
+            this.student_file = data.student_file;
+        }
+    },
     props: [
         'applyData'
     ],
@@ -88,18 +95,18 @@ export default {
             student_file: {
                 name: "",
                 gender: "",
-                id: "",
-                college: "计算机科学与技术",
-                phone: "",
+                code: "",
+                college: "请选择学院",
+                contact: "",
             },
             colleges: [
-                { text: '通信与信息工程', value: '通信与信息工程' },
-                { text: '计算机科学与技术', value: '计算机科学与技术' },
-                { text: '经济管理', value: '经济管理' },
-                { text: '自动化学院', value: '自动化学院' },
-                { text: '光电工程', value: '光电工程' },
-                { text: '外国语', value: '外国语' },
-                { text: '生物信息', value: '生物信息' },
+                { text: '通信与信息工程学院', value: '通信与信息工程学院' },
+                { text: '计算机科学与技术学院', value: '计算机科学与技术学院' },
+                { text: '经济管理学院', value: '经济管理学院' },
+                { text: '自动化学院学院', value: '自动化学院学院' },
+                { text: '光电工程学院', value: '光电工程学院' },
+                { text: '外国语学院', value: '外国语学院' },
+                { text: '生物信息学院', value: '生物信息学院' },
                 { text: '法学院', value: '法学院' },
                 { text: '先进制造工程学院', value: '先进制造工程学院' },
                 { text: '体育学院', value: '体育学院' },
@@ -117,16 +124,30 @@ export default {
         },
         next_step () {
             let file = this.student_file;
+
             for (let key in file) {
                 if (file[key].length == 0) {
                     this.show_file_cover = true;
                     return;
                 }
             }
-            if (!(/(^(13\d|15[^4\D]|17[13678]|18\d)\d{8}|170[^346\D]\d{7})$/.test(this.student_file.phone))) {
+
+            if (!(/(^(13\d|15[^4\D]|17[13678]|18\d)\d{8}|170[^346\D]\d{7})$/.test(file.contact))) {
+                /* 电话格式填写不对 */
                 this.show_file_cover = true;
                 return;
             }
+            if (!(/2014\d{6}/.test(file.code))) {
+                /* 学号格式填写不对 */
+                this.show_file_cover = true;
+                return;
+            }
+            if (file.college == "请选择学院") {
+                /* 学院没有填写 */
+                this.show_file_cover = true;
+                return;
+            }
+
             this.applyData.student_file = file;
             this.applyData.current_step = 2;
         }

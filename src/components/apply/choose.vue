@@ -16,21 +16,37 @@
                 <span>组织</span>
                 <select v-model="choice.organization" 
                         @change="confirm_organization($index)">
-                    <option disabled="disabled">请选择组织</option>
+                    <option disabled="disabled" 
+                            v-if="choice.removable">
+                        请选择组织
+                    </option>
+                    <option disabled="disabled" 
+                            v-else>
+                        已提交不能修改
+                    </option>
                     <option v-for="organization in organizations" 
-                            v-bind:value="organization.value">
+                            v-bind:value="organization.value"
+                            v-show="choice.removable">
                         {{organization.value}}
                     </option>
                 </select>
             </p>
             <p class="wrapper">
                 <span>部门</span>
-                <select v-model="choice.apartment"
-                        @change="confirm_apartment($index)">
-                    <option disabled="disabled">请选择部门</option>
-                    <option v-for="apartment in apartments[choice.organization]"
-                            v-bind:value="apartment">
-                        {{apartment}}
+                <select v-model="choice.department"
+                        @change="confirm_department($index)">
+                    <option disabled="disabled" 
+                            v-if="choice.removable">
+                        请选择部门
+                    </option>
+                    <option disabled="disabled" 
+                            v-else>
+                        已提交不能修改
+                    </option>
+                    <option v-for="department in departments[choice.organization]"
+                            v-bind:value="department" 
+                            v-show="choice.removable">
+                        {{department}}
                     </option>
                 </select>
             </p>
@@ -95,6 +111,12 @@
 
 <script>
 export default {
+    ready () {
+        if (localStorage.apply_CQUPT) {
+            let data = JSON.parse(localStorage.apply_CQUPT);
+            this.choices = data.student_org;
+        }
+    },
     props: [
         'applyData'
     ],
@@ -117,7 +139,7 @@ export default {
             choices: [
                 {
                     organization: '请选择组织', 
-                    apartment: '请选择部门', 
+                    department: '请选择部门', 
                     removable: true
                 }
             ],
@@ -144,7 +166,7 @@ export default {
                     value: '团委各部室'
                 }
             },
-            apartments: {
+            departments: {
                 '校学生会': [
                     '综合部',
                     '学习部',
@@ -239,16 +261,16 @@ export default {
                 this.show_cover = true;
             }
         },
-        confirm_apartment (index) {
+        confirm_department (index) {
             let chosen_norepeat = [];
 
             let chosen = this.choices.map((item, index) => {
                 let _org = item.organization,
-                    _apt = item.apartment;
+                    _apt = item.department;
                 if (_org != "请选择组织" && _apt != "请选择部门") {
                     return _org + _apt;
                 }
-            }); 
+            });
 
             let _drop_repeat = function (array) {
                 let n = {}, 
@@ -279,7 +301,7 @@ export default {
         add_item () {
             let data = {
                 organization: '请选择组织', 
-                apartment: '请选择部门',
+                department: '请选择部门',
                 removable: true
             };
             this.choices.push(data)
@@ -302,6 +324,45 @@ export default {
             if (!this.is_submiting) {
                 this.is_submiting = true;
                 this.submit_notify = '正在提交 请稍等';
+
+                this.choices.map((item, index) => {
+                    let data = {};
+                    data.organization = item.organization;
+                    data.department = item.department;
+                    if (data.organization != '请选择组织' && data.department != '请选择部门') {
+                        this.applyData.student_org.push(data);
+                    }
+                });
+                /**
+                 *  前端数据做一点 过滤
+                 *  不能不选择部门
+                 */
+                
+                let data = {};
+                let url = "http://192.168.199.134:8000/enroll/api/create";
+
+                data = this.applyData.student_file;
+                data.choice = this.applyData.student_org;
+                data.pass = this.verify;
+
+                // if (data.choice.length == 0) {
+                //     this.submit_notify = '请选择至少一个部门';
+                //     this.is_submiting = false;
+                //     return;
+                // } else {
+                //     this.$http.post(url, data, {
+                //         emulateJSON: true
+                //     })
+                //     .then((res) => {
+                //         this.submit_notify = '报名成功';
+                //         this.applyData.current_step = 3;
+                //     }, (res) => {
+                //         console.log('fal');
+                //     });
+                // }
+                
+                this.applyData.current_step = 3;
+
                 /**
                  *  发个请求 失败了的话更改 notify 内容 并且将 close 按钮改为可见状态
                  *  成功就执行下一步
@@ -311,10 +372,6 @@ export default {
         },
         prev_step () {
             this.applyData.current_step = 1;
-        },
-        next_step () {
-            this.applyData.student_org = this.choices;
-            this.applyData.current_step = 3;
         }
     }
 }
