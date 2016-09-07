@@ -36,7 +36,9 @@
     <p class="item">
         <span>学院</span>
         <select v-model="student_file.college">
-            <option disabled="disabled">请选择学院</option>
+            <option disabled="disabled">
+                请选择学院
+            </option>
             <option v-for="option in colleges" 
                     v-bind:value="option.value">
                 {{option.text}}
@@ -162,6 +164,17 @@ export default {
             this.is_query = true;
             this.file_notify = '正在查询已报名的部门 请稍候';
             this.show_file_cover = true;
+
+            let url = '';
+
+            this.$http.post(url, file, {
+                emulateJSON: true
+            })
+            .then((res) => {
+
+            }, (res) => {
+
+            });
 
             /**
              *  这里发一个请求获取数据 
