@@ -66,12 +66,13 @@
          v-show="show_file_cover">
         <div class="notify-container">
             <div class="close" 
-                 @click="close_file_cover">
+                 @click="close_file_cover"
+                 v-show="!is_query">
                 
             </div>
             <p class="cover-title">提示</p>
             <p class="cover-notify">
-                请将信息正确地填写完整
+                {{file_notify}}
             </p>
         </div>
     </div>
@@ -92,6 +93,8 @@ export default {
     data () {
         return {
             show_file_cover: false,
+            file_notify: '请将信息正确地填写完整',
+            is_query: false,
             student_file: {
                 name: "",
                 gender: "",
@@ -149,7 +152,23 @@ export default {
             }
 
             this.applyData.student_file = file;
+            this.is_query = true;
+            this.file_notify = '正在查询已报名的部门 请稍候';
+            this.show_file_cover = true;
+
+            /**
+             *  这里发一个请求获取数据 
+             *  成功了之后把 cover 和文字改过来
+             */
+
             this.applyData.current_step = 2;
+            
+            /* 成功之后的操作 */
+            if (this.applyData.current_step == 2) {
+                this.is_query = false;
+                this.file_notify = '请将信息正确地填写完整';
+                this.show_file_cover = false;                
+            }
         }
     }
 }

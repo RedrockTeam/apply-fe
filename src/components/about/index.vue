@@ -9,7 +9,7 @@
                  v-for="organization in organizations">
                 <a class="organizations-item" 
                    v-for="item in organization"
-                   href="http://baidu.com">
+                   v-bind:href="item.href">
                     <img v-bind:src="item.img">
                     <span>{{item.organization}}</span>
                 </a>
@@ -49,8 +49,8 @@ export default {
                 ],
                 [
                     {organization: '大学生艺术团', img: '/static/logo-dyt.png', href: 'http://h5.rrxiu.net/v/nxs2xo'},
-                    {organization: '学生会', img: '/static/logo-xsh.png', href: 'http://b61.rrxiu.me/v/4hbitl?from_code=5897fe5273c16e98fc6cd27fdc4b9f60'},
-                    {organization: '团委组织部', img: '/static/logo-tw.png', href: 'http://u1380875.jisuapp.cn/s?id=1951983'}
+                    {organization: '团委组织部', img: '/static/logo-tw.png', href: 'http://u1380875.jisuapp.cn/s?id=1951983'},
+                    {organization: '学生会', img: '/static/logo-xsh.png', href: 'http://b61.rrxiu.me/v/4hbitl?from_code=5897fe5273c16e98fc6cd27fdc4b9f60'}
                 ]
             ]
         }
@@ -138,4 +138,5 @@ export default {
         color: #fff;
     }
 }
+
 </style>

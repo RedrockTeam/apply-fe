@@ -112,10 +112,10 @@
 <script>
 export default {
     ready () {
-        if (localStorage.apply_CQUPT) {
-            let data = JSON.parse(localStorage.apply_CQUPT);
-            this.choices = data.student_org;
-        }
+        // if (localStorage.apply_CQUPT) {
+        //     let data = JSON.parse(localStorage.apply_CQUPT);
+        //     this.choices = data.student_org;
+        // }
     },
     props: [
         'applyData'
