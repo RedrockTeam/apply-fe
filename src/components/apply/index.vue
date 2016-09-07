@@ -24,11 +24,19 @@ export default {
     },
     data () {
         return {
+            /**
+             *  current_step    当前步骤
+             *  student_file    学生信息
+             *  student_org     本次报名的部门
+             *  remain_org      还能报的部门
+             *  exist_org       后台返回的已经报的部门
+             */
             applyData: {
                 current_step: 1,
                 student_file: {},
                 student_org: [],
-                remain_org: 3
+                remain_org: 3,
+                exist_org: []
             }
         }
     },

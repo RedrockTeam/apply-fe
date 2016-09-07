@@ -84,7 +84,14 @@ export default {
     ready () {
         if (localStorage.apply_CQUPT) {
             let data = JSON.parse(localStorage.apply_CQUPT);
-            this.student_file = data.student_file;
+            this.student_file = {
+                name: data.student_file.name,
+                gender: data.student_file.gender,
+                code: data.student_file.code,
+                college: data.student_file.college,
+                contact: data.student_file.contact
+            }
+            /* 一条一条填 免得出 bug */
         }
     },
     props: [
@@ -159,16 +166,17 @@ export default {
             /**
              *  这里发一个请求获取数据 
              *  成功了之后把 cover 和文字改过来
+             *  否则上一步退回去的时候会出问题
              */
 
-            this.applyData.current_step = 2;
+            // this.applyData.current_step = 2;
             
             /* 成功之后的操作 */
-            if (this.applyData.current_step == 2) {
-                this.is_query = false;
-                this.file_notify = '请将信息正确地填写完整';
-                this.show_file_cover = false;                
-            }
+            // if (this.applyData.current_step == 2) {
+            //     this.is_query = false;
+            //     this.file_notify = '请将信息正确地填写完整';
+            //     this.show_file_cover = false;                
+            // }
         }
     }
 }

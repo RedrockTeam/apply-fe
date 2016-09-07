@@ -315,14 +315,14 @@ export default {
         },
         close_submit_cover () {
             this.submit_cover = false;
-            this.submit_notify = '信息提交后不可修改';
+            this.submit_notify = '部门和手机号提交后不可修改';
         },
         show_submit_cover () {
             this.submit_cover = true;
         },
         confirm_submit () {
             if (!this.is_submiting) {
-                this.is_submiting = true;
+                // this.is_submiting = true;
                 this.submit_notify = '正在提交 请稍等';
 
                 this.choices.map((item, index) => {
@@ -345,23 +345,39 @@ export default {
                 data.choice = this.applyData.student_org;
                 data.pass = this.verify;
 
-                // if (data.choice.length == 0) {
-                //     this.submit_notify = '请选择至少一个部门';
-                //     this.is_submiting = false;
-                //     return;
-                // } else {
-                //     this.$http.post(url, data, {
-                //         emulateJSON: true
-                //     })
-                //     .then((res) => {
-                //         this.submit_notify = '报名成功';
-                //         this.applyData.current_step = 3;
-                //     }, (res) => {
-                //         console.log('fal');
-                //     });
-                // }
+                if (data.choice.length == 0) {
+                    this.submit_notify = '请选择至少一个部门';
+                    this.is_submiting = false;
+                    return;
+                } else {
+                    this.$http.post(url, data, {
+                        emulateJSON: true
+                    })
+                    .then((res) => {
+                        // this.submit_notify = '报名成功';
+                        // this.applyData.current_step = 3;
+                        // console.log(res);
+                        let status_code = res.data.status,
+                            status_msg = res.data.content;
+                        // console.log(status_code);
+                        switch (status_code) {
+                            case -10:
+                                this.submit_notify = status_msg;
+                                break;
+                            case 0:
+                                this.submit_notify = status_msg;
+                                this.applyData.current_step = 3;
+                                break;                
+                            default: 
+                                this.submit_notify = '错误';
+                                break;
+                        }
+                    }, (res) => {
+                        console.log('fal');
+                    });
+                }
                 
-                this.applyData.current_step = 3;
+                // this.applyData.current_step = 3;
 
                 /**
                  *  发个请求 失败了的话更改 notify 内容 并且将 close 按钮改为可见状态
