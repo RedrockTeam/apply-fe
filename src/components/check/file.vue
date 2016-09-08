@@ -76,7 +76,7 @@ export default {
                     this.notify = '你还没有参与报名或信息填写错误';
                 }
 
-                if (res.data.status == 0 && res.data.extra.length > 0) {
+                if (res.data.status == 0 && res.data.extra) {
                     this.notify = '查询成功'; 
                     let extra =  res.data.extra;
                     let org = [];
@@ -144,7 +144,7 @@ export default {
     .title {
         margin: 1.5rem auto;
         letter-spacing: .05rem;
-        font-size: .55rem;
+        font-size: .5rem;
         text-align: center;
         color: #473d1f;
     }
@@ -168,8 +168,9 @@ export default {
         font-size: .5rem;
         float: right;
         border: none;
-        border-radius: .15rem;
+        border-radius: .1rem;
         outline: none;
+        color: #766139;
     }
     .notify {
         margin-left: 1.6rem;
@@ -185,12 +186,12 @@ export default {
             display: inline-block;
             width: 3.7rem;
             height: 1.35rem;
-            line-height: 1.3rem;
+            line-height: 1.35rem;
             text-align: center;
             color: #fff;
             font-size: .5rem;
             letter-spacing: .2rem;
-            background: url('/static/btn-small.png') no-repeat 100% 100%;
+            background: url('/static/images/btn-small.png') no-repeat 100% 100%;
             background-size: cover;
             a {
                 width: 100%;

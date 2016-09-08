@@ -37,14 +37,14 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
-  background: url(/static/background.png) no-repeat 100% 100%;
+  background: url(/static/images/background.png) no-repeat 100% 100%;
   background-size: cover;
 }
 .banner {
     margin-top: .3rem;
     width: 100%;
     height: 8rem;
-    background: url(/static/banner.png) no-repeat 100% 100%;
+    background: url(/static/images/banner.png) no-repeat 100% 100%;
     background-size: cover;
 }
 .notify {
@@ -59,7 +59,7 @@ export default {
     margin: 1rem auto 0 auto;
     width: 8.5rem;
     height: 1.45rem;
-    background: url(/static/btn-big.png) no-repeat 100% 100%;
+    background: url(/static/images/btn-big.png) no-repeat 100% 100%;
     background-size: cover;   
     a {
         display: inline-block;
@@ -86,7 +86,7 @@ export default {
         color: #fff;
         font-size: .45rem;
         letter-spacing: .2rem;
-        background: url('/static/btn-small.png') no-repeat 100% 100%;
+        background: url('/static/images/btn-small.png') no-repeat 100% 100%;
         background-size: cover;
         a {
             width: 100%;

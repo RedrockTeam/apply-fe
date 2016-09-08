@@ -1,6 +1,5 @@
 <template>
   <section class="choose">
-  <meta name="csrf-token" content="{{token}}">
     <p class="title">
         选择组织和部门
     </p>
@@ -371,19 +370,28 @@ export default {
                     this.is_submiting = false;
                     return;
                 } else {
+                    let meta = document.querySelectorAll('meta'),
+                        token = '';                    
+                    Array.prototype.forEach.call(meta, (item) => {
+                        if (item.getAttribute('name') == 'csrf-token') {
+                            token = item.getAttribute('content');
+                        }
+                    });
+                    /**
+                     *  获取带 token 的 meta 标签 
+                     *  如果有 获取 token
+                     */
+
                     this.$http.post(url, data, {
                         emulateJSON: true,
                         headers: {
-                            'X-CSRF-TOKEN': this.token
+                            'X-CSRF-TOKEN': token
                         }
                     })
                     .then((res) => {
-                        // this.submit_notify = '报名成功';
-                        // this.applyData.current_step = 3;
-                        // console.log(res);
                         let status_code = res.data.status,
                             status_msg = res.data.content;
-                        // console.log(status_code);
+
                         switch (status_code) {
                             case -10:
                                 this.submit_notify = status_msg;
@@ -457,7 +465,7 @@ export default {
         right: .15rem;
         width: .5rem;
         height: .5rem;
-        background: url('/static/close.png') no-repeat 100% 100%;
+        background: url('/static/images/close.png') no-repeat 100% 100%;
         background-size: cover;
         -webkit-tap-highlight-color: transparent;
     }
@@ -489,7 +497,7 @@ export default {
         text-align: center;
         color: #fff;
         font-size: .5rem;
-        background: url('/static/btn-small.png') no-repeat 100% 100%;
+        background: url('/static/images/btn-small.png') no-repeat 100% 100%;
         background-size: cover;
     }
 }
@@ -514,7 +522,7 @@ select {
     border-radius: .15rem;
     outline: none;
     position: relative;
-    background: url('/static/arrow.png') no-repeat 100% 100%;
+    background: url('/static/images/arrow.png') no-repeat 100% 100%;
     background-size: contain;
     background-color: #eeeeed;
     color: #766139;
@@ -547,7 +555,7 @@ select {
         display: inline-block;
         width: .5rem;
         height: .5rem;
-        background: url('/static/add.png') no-repeat 100% 100%;
+        background: url('/static/images/add.png') no-repeat 100% 100%;
         background-size: cover;
         vertical-align: middle;
     }
@@ -568,7 +576,7 @@ select {
         right: .15rem;
         width: .5rem;
         height: .5rem;
-        background: url('/static/close.png') no-repeat 100% 100%;
+        background: url('/static/images/close.png') no-repeat 100% 100%;
         background-size: cover;
         -webkit-tap-highlight-color: transparent;
     }
@@ -605,7 +613,7 @@ select {
         color: #fff;
         font-size: .5rem;
         letter-spacing: .2rem;
-        background: url('/static/btn-small.png') no-repeat 100% 100%;
+        background: url('/static/images/btn-small.png') no-repeat 100% 100%;
         background-size: cover;
     }
     .btn:first-of-type {

@@ -57,7 +57,7 @@ export default {
         margin: 0 auto;
         width: 9rem;
         height: 3.1rem;
-        background: url('/static/finish-banner.png') no-repeat 100% 100%;
+        background: url('/static/images/finish-banner.png') no-repeat 100% 100%;
         background-size: contain;
         .ok {
             display: inline-block;
@@ -91,7 +91,7 @@ export default {
     margin: .85rem auto 0 auto;
     width: 8.5rem;
     height: 1.45rem;
-    background: url(/static/btn-big.png) no-repeat 100% 100%;
+    background: url(/static/images/btn-big.png) no-repeat 100% 100%;
     background-size: cover;   
     a {
         display: inline-block;

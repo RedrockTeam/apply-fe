@@ -1,6 +1,5 @@
 <template>
   <section class="file">
-  <!-- <meta>  -->
     <p class="title">
         填写个人信息
     </p>
@@ -172,7 +171,7 @@ export default {
                 emulateJSON: true
             })
             .then((res) => {
-                if (res.data.content == "该学生没有报过任何部门") {
+                if (res.data.content == "该学生没有报过任何部门!" || res.data.status == 0) {
                     this.is_query = false;
                     this.file_notify = '请将信息正确地填写完整';
                     this.show_file_cover = false;   
@@ -249,7 +248,7 @@ export default {
         right: .15rem;
         width: .5rem;
         height: .5rem;
-        background: url('/static/close.png') no-repeat 100% 100%;
+        background: url('/static/images/close.png') no-repeat 100% 100%;
         background-size: cover;
         -webkit-tap-highlight-color: transparent;
     }
@@ -276,7 +275,7 @@ select {
     border-radius: .1rem;
     outline: none;
     position: relative;
-    background: url('/static/arrow.png') no-repeat 100% 100%;
+    background: url('/static/images/arrow.png') no-repeat 100% 100%;
     background-size: contain;
     background-color: #fffffb;
     color: #766139;
@@ -354,7 +353,7 @@ input[type=radio]:checked + label:before {
         color: #fff;
         font-size: .45rem;
         letter-spacing: .2rem;
-        background: url('/static/btn-small.png') no-repeat 100% 100%;
+        background: url('/static/images/btn-small.png') no-repeat 100% 100%;
         background-size: cover;
         a {
             width: 100%;

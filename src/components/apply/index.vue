@@ -17,7 +17,7 @@ import Finish from './finish'
 
 export default {
     ready () {
-        console.log(233);
+        
     },
     components: {
         Progress,
@@ -57,7 +57,7 @@ export default {
     height: 100%;
     top: 0;
     left: 0;
-    background: url(/static/comp-background.png) no-repeat 100% 100%;
+    background: url(/static/images/comp-background.png) no-repeat 100% 100%;
     background-size: cover;
     overflow: hidden;
 }

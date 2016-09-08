@@ -38,19 +38,19 @@ export default {
             /* 记得加上招贤纳士的地址 */
             organizations: [
                 [
-                    {organization: '团委办公室', img: '/static/logo-tw.png', href: 'http://h5.rrxiu.net/v/aqbj01'},
-                    {organization: '青年志愿者协会', img: '/static/logo-qx.png', href: 'http://o.maka.im/k/66AKFG37'},
-                    {organization: '团委宣传部', img: '/static/logo-tw.png', href: 'http://m.eqxiu.com/s/cPPW2WtR'}
+                    {organization: '团委办公室', img: '/static/images/logo-tw.png', href: 'http://h5.rrxiu.net/v/aqbj01'},
+                    {organization: '青年志愿者协会', img: '/static/images/logo-qx.png', href: 'http://o.maka.im/k/66AKFG37'},
+                    {organization: '团委宣传部', img: '/static/images/logo-tw.png', href: 'http://m.eqxiu.com/s/cPPW2WtR'}
                 ],
                 [
-                    {organization: '科技联合会', img: '/static/logo-kl.png', href: 'http://b61.rrxiu.me/v/ikq34i'},
-                    {organization: '红岩网校工作站', img: '/static/logo-hy.png', href: ''},
-                    {organization: '社团联合会', img: '/static/logo-sl.png', href: 'http://u1380763.jisuapp.cn/s?id=1936916'}
+                    {organization: '科技联合会', img: '/static/images/logo-kl.png', href: 'http://b61.rrxiu.me/v/ikq34i'},
+                    {organization: '红岩网校工作站', img: '/static/images/logo-hy.png', href: ''},
+                    {organization: '社团联合会', img: '/static/images/logo-sl.png', href: 'http://u1380763.jisuapp.cn/s?id=1936916'}
                 ],
                 [
-                    {organization: '大学生艺术团', img: '/static/logo-dyt.png', href: 'http://h5.rrxiu.net/v/nxs2xo'},
-                    {organization: '团委组织部', img: '/static/logo-tw.png', href: 'http://u1380875.jisuapp.cn/s?id=1951983'},
-                    {organization: '学生会', img: '/static/logo-xsh.png', href: 'http://b61.rrxiu.me/v/4hbitl?from_code=5897fe5273c16e98fc6cd27fdc4b9f60'}
+                    {organization: '大学生艺术团', img: '/static/images/logo-dyt.png', href: 'http://h5.rrxiu.net/v/nxs2xo'},
+                    {organization: '团委组织部', img: '/static/images/logo-tw.png', href: 'http://u1380875.jisuapp.cn/s?id=1951983'},
+                    {organization: '学生会', img: '/static/images/logo-xsh.png', href: 'http://b61.rrxiu.me/v/4hbitl?from_code=5897fe5273c16e98fc6cd27fdc4b9f60'}
                 ]
             ]
         }
@@ -72,7 +72,7 @@ export default {
     height: 100%;
     top: 0;
     left: 0;
-    background: url(/static/comp-background.png) no-repeat 100% 100%;
+    background: url(/static/images/comp-background.png) no-repeat 100% 100%;
     background-size: cover;
     overflow: hidden;
 }
@@ -123,7 +123,7 @@ export default {
         color: #fff;
         font-size: .45rem;
         letter-spacing: .2rem;
-        background: url('/static/btn-small.png') no-repeat 100% 100%;
+        background: url('/static/images/btn-small.png') no-repeat 100% 100%;
         background-size: cover;
     }
     .btn:first-of-type {

@@ -68,7 +68,7 @@ export default {
     line-height: 2.2rem;
     text-align: center;
     font-size: .45rem;
-    background: url('/static/dialog.png') no-repeat 100% 100%;
+    background: url('/static/images/dialog.png') no-repeat 100% 100%;
     background-size: contain;
     .name {
         vertical-align: bottom;
@@ -135,7 +135,7 @@ export default {
     margin: 1rem auto 0 auto;
     width: 8.5rem;
     height: 1.45rem;
-    background: url(/static/btn-big.png) no-repeat 100% 100%;
+    background: url(/static/images/btn-big.png) no-repeat 100% 100%;
     background-size: cover;   
     a {
         display: inline-block;
