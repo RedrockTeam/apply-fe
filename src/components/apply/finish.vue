@@ -34,7 +34,7 @@ export default {
             data_str = '';
         
         data.student_file = this.applyData.student_file;
-        data.student_org = this.applyData.student_org;
+        // data.student_org = this.applyData.student_org;
         data_str = JSON.stringify(data);
 
         localStorage.setItem('apply_CQUPT', data_str);

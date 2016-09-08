@@ -1,5 +1,6 @@
 <template>
   <section class="file">
+  <!-- <meta>  -->
     <p class="title">
         填写个人信息
     </p>
@@ -16,13 +17,13 @@
             <input type="radio"
                class="input-radio" 
                id="male" 
-               value="男" 
+               value="0" 
                v-model="student_file.gender">
             <label for="male">男</label>
             <input type="radio" 
                    class="input-radio" 
-                   id="female" 
-                   value="女" 
+                   id="female"
+                   value="1" 
                    v-model="student_file.gender">
             <label for="female">女</label>
         </span>
@@ -160,21 +161,41 @@ export default {
                 return;
             }
 
-            this.applyData.student_file = file;
-            this.is_query = true;
-            this.file_notify = '正在查询已报名的部门 请稍候';
-            this.show_file_cover = true;
+            // this.applyData.student_file = file;
+            // this.is_query = true;
+            // this.file_notify = '正在查询已报名的部门 请稍候';
+            // this.show_file_cover = true;
 
-            let url = '';
+            // let url = 'http://192.168.199.134:8000/enroll/api/notify';
 
-            this.$http.post(url, file, {
-                emulateJSON: true
-            })
-            .then((res) => {
-
-            }, (res) => {
-
-            });
+            // this.$http.post(url, file, {
+            //     emulateJSON: true
+            // })
+            // .then((res) => {
+            //     if (res.data.content == "该学生没有报过任何部门") {
+            //         this.is_query = false;
+            //         this.file_notify = '请将信息正确地填写完整';
+            //         this.show_file_cover = false;   
+            //         this.applyData.current_step = 2;
+            //     } else if(res.data.extra) {
+            //         let data = res.data.extra,
+            //             org = [];
+            //         org = data.map((item, index) => {
+            //             let _obj = {};
+            //             _obj.organization = item[0];
+            //             _obj.department = item[1];
+            //             return _obj; 
+            //         });
+            //         this.is_query = false;
+            //         this.file_notify = '请将信息正确地填写完整';
+            //         this.show_file_cover = false;
+            //         this.applyData.exist_org = org;
+            //         this.applyData.current_step = 2;
+            //     }
+            // }, (res) => {
+            //     this.is_query = false;
+            //     this.file_notify = '网络错误 请检查网络状况';
+            // });
 
             /**
              *  这里发一个请求获取数据 
@@ -182,14 +203,7 @@ export default {
              *  否则上一步退回去的时候会出问题
              */
 
-            // this.applyData.current_step = 2;
-            
-            /* 成功之后的操作 */
-            // if (this.applyData.current_step == 2) {
-            //     this.is_query = false;
-            //     this.file_notify = '请将信息正确地填写完整';
-            //     this.show_file_cover = false;                
-            // }
+            this.applyData.current_step = 2;
         }
     }
 }
@@ -203,7 +217,7 @@ export default {
     background-color: rgba(0, 0, 0, .5);
     width: 10rem;
     height: 20rem;
-    top: -2rem;
+    top: -1.1rem;
     left: 0rem;
     bottom: 0;
     .notify-container {
@@ -227,6 +241,7 @@ export default {
     }
     .cover-notify {
         margin-bottom: .1rem;
+        color: #766139;
     }
     .close {
         position: absolute;
@@ -252,18 +267,19 @@ select {
     appearance: button;
     box-sizing: border-box;
     margin: 0;
-    width: 7.5rem;
+    width: 7.7rem;
     height: 1rem;
     line-height: .8rem;
     font-size: .5rem;
     float: right;
     border: none;
-    border-radius: .15rem;
+    border-radius: .1rem;
     outline: none;
     position: relative;
     background: url('/static/arrow.png') no-repeat 100% 100%;
     background-size: contain;
-    background-color: #fefff4;
+    background-color: #fffffb;
+    color: #766139;
 }
 label:before {
     content: "";
@@ -273,9 +289,9 @@ label:before {
     width: .5rem;
     height: .5rem;
     border-radius: .25rem;
-    border: .1rem solid #fff;
+    border: .1rem solid #fffffb;
     margin-right: .2rem;
-    background-color: #fff;
+    background-color: #fffffb;
     vertical-align: baseline;
 }
 input[type=radio]:checked + label:before {
@@ -284,23 +300,23 @@ input[type=radio]:checked + label:before {
 .label-wrapper {
     display: inline-block;
     float: right;
-    width: 7.5rem;
+    width: 7.7rem;
 }
 .file {
     box-sizing: border-box;
-    padding: 0 .45rem;
+    padding: 0 .4rem;
     float: left;
     width: 10rem;
     height: 10rem;
 }
 .title {
     letter-spacing: .05rem;
-    font-size: .55rem;
+    font-size: .5rem;
     text-align: center;
     color: #473d1f;
 }
 .item {
-    margin-top: .6rem;
+    margin-top: .5rem;
     line-height: 1rem;
     color: #816b41;
     span {
@@ -312,30 +328,31 @@ input[type=radio]:checked + label:before {
     box-sizing: border-box;
     margin: 0;
     padding: 0 .2rem;
-    background-color: #fefff4;
-    width: 7.5rem;
+    background-color: #fffffb;
+    width: 7.7rem;
     height: 1rem;
     line-height: .8rem;
     font-size: .5rem;
     float: right;
     border: none;
-    border-radius: .15rem;
+    border-radius: .1rem;
     outline: none;
+    color: #766139;
 }
 .input-radio {
     display: none;
 }
 .btn-container {
     padding: 0 .5rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     .btn {
         display: inline-block;
         width: 3.7rem;
         height: 1.35rem;
-        line-height: 1.3rem;
+        line-height: 1.35rem;
         text-align: center;
         color: #fff;
-        font-size: .5rem;
+        font-size: .45rem;
         letter-spacing: .2rem;
         background: url('/static/btn-small.png') no-repeat 100% 100%;
         background-size: cover;

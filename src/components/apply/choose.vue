@@ -111,11 +111,24 @@
 
 <script>
 export default {
-    ready () {
-        // if (localStorage.apply_CQUPT) {
-        //     let data = JSON.parse(localStorage.apply_CQUPT);
-        //     this.choices = data.student_org;
-        // }
+    watch: {
+        'applyData.exist_org': function (new_value, old_value) {
+            if (new_value.length != 0) {
+                this.choices = new_value;    
+            } else {
+                this.choices = [
+                    {
+                        organization: '请选择组织', 
+                        department: '请选择部门', 
+                        removable: true
+                    }
+                ];
+            }
+            
+            /**
+             *  监听 已选择的组织的回调 数据的变化
+             */
+        }
     },
     props: [
         'applyData'
@@ -200,7 +213,7 @@ export default {
                 '红岩网校工作站': [
                     '产品策划部',
                     '视觉设计部',
-                    'Web研发部',
+                    'web研发部',
                     '产品运营部',
                     '移动开发部',
                     '运维安全部'
@@ -255,11 +268,11 @@ export default {
             chosen_norepeat = _drop_repeat(chosen);
             len = chosen_norepeat.length;
             this.applyData.remain_org = 3 - len;
-            if (len > 3) {
-                this.choices.splice(index, 1);
-                this.cover_notify = '最多选择三个组织';
-                this.show_cover = true;
-            }
+            // if (len > 3) {
+            //     this.choices.splice(index, 1);
+            //     this.cover_notify = '最多选择三个组织';
+            //     this.show_cover = true;
+            // }
         },
         confirm_department (index) {
             let chosen_norepeat = [];
@@ -324,22 +337,27 @@ export default {
             if (!this.is_submiting) {
                 // this.is_submiting = true;
                 this.submit_notify = '正在提交 请稍等';
+                this.applyData.student_org = [];
+                /**
+                 *  强行清除一下
+                 */
 
                 this.choices.map((item, index) => {
                     let data = {};
                     data.organization = item.organization;
                     data.department = item.department;
-                    if (data.organization != '请选择组织' && data.department != '请选择部门') {
+                    if (data.organization != '请选择组织' && data.department != '请选择部门' && item.removable) {
                         this.applyData.student_org.push(data);
                     }
                 });
                 /**
                  *  前端数据做一点 过滤
                  *  不能不选择部门
+                 *  每次提交的都是新的数据 没有提交过的
                  */
                 
                 let data = {};
-                let url = "http://192.168.199.134:8000/enroll/api/create";
+                let url = "http://192.168.199.134:8000/enroll/api/handle";
 
                 data = this.applyData.student_file;
                 data.choice = this.applyData.student_org;
@@ -382,7 +400,7 @@ export default {
                 /**
                  *  发个请求 失败了的话更改 notify 内容 并且将 close 按钮改为可见状态
                  *  成功就执行下一步
-                 *  下一步的 ready 时候 localStorage 缓存报名信息
+                 *  下一步的 ready 时候 localStorage 缓存个人信息 不缓存报名信息
                  */
             }
         },
@@ -401,7 +419,7 @@ export default {
     background-color: rgba(0, 0, 0, .5);
     width: 10rem;
     height: 20rem;
-    top: -2rem;
+    top: -1.3rem;
     left: 10rem;
     bottom: 0;
     .notify-container {
@@ -425,6 +443,7 @@ export default {
     }
     .cover-notify {
         margin-bottom: .1rem;
+        color: #766139;
     }
     .close {
         position: absolute;
@@ -492,10 +511,11 @@ select {
     background: url('/static/arrow.png') no-repeat 100% 100%;
     background-size: contain;
     background-color: #eeeeed;
+    color: #766139;
 }
 .title {
     letter-spacing: .05rem;
-    font-size: .55rem;
+    font-size: .5rem;
     text-align: center;
     color: #473d1f;
 }
@@ -510,7 +530,8 @@ select {
 .add-item {
     transition: all .6s;
     width: 100%;
-    padding: .2rem 0;
+    margin: .5rem 0;
+    padding: .3rem 0;
     text-align: center;
     font-size: .5rem;
     line-height: .5rem;
@@ -533,7 +554,7 @@ select {
     box-sizing: border-box;
     padding: .3rem 0rem;
     border-radius: .1rem;
-    background-color: #fffef5;
+    background-color: #fefff6;
     position: relative;
     .close {
         position: absolute;

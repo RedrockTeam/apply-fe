@@ -19,8 +19,8 @@ export default {
 <style lang="less">
 .progress {
     width: 100%;
-    height: 1.5rem;
-    line-height: 1.5rem;
+    height: 1.1rem;
+    line-height: 1.1rem;
     font-size: 0;
     text-align: center;
 }

@@ -66,7 +66,7 @@ export default {
         width: 100%;
         height: 100%;
         line-height: 1.45rem;
-        font-size: .4rem;
+        font-size: .45rem;
         text-align: center;
         text-decoration: none;
         color: #fff;
@@ -83,7 +83,7 @@ export default {
         line-height: 1.3rem;
         text-align: center;
         color: #fff;
-        font-size: .5rem;
+        font-size: .45rem;
         letter-spacing: .2rem;
         background: url('/static/btn-small.png') no-repeat 100% 100%;
         background-size: cover;

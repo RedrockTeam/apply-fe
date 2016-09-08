@@ -36,7 +36,8 @@ export default {
                 student_file: {},
                 student_org: [],
                 remain_org: 3,
-                exist_org: []
+                exist_org: [],
+                show_choose: false
             }
         }
     },

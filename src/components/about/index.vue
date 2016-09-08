@@ -62,7 +62,7 @@ export default {
 .title {
     margin-top: .5rem;
     letter-spacing: .05rem;
-    font-size: .55rem;
+    font-size: .5rem;
     text-align: center;
     color: #473d1f;
 }
@@ -112,15 +112,16 @@ export default {
     }
 }
 .btn-container {
-    padding: 0 .5rem;
+    padding: 0 .75rem;
+    overflow: hidden;
     .btn {
         display: inline-block;
         width: 3.7rem;
         height: 1.35rem;
-        line-height: 1.3rem;
+        line-height: 1.35rem;
         text-align: center;
         color: #fff;
-        font-size: .5rem;
+        font-size: .45rem;
         letter-spacing: .2rem;
         background: url('/static/btn-small.png') no-repeat 100% 100%;
         background-size: cover;
@@ -138,5 +139,15 @@ export default {
         color: #fff;
     }
 }
-
+@media (max-width: 320px) and (max-height: 420px) {
+    .organizations {
+        margin: .3rem auto;
+    }
+    .organizations-item {
+        span {
+            line-height: .8rem;
+        }
+    }
+}
+//  iphone4 wx-webview  320 * 416
 </style>
