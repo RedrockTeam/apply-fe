@@ -167,8 +167,23 @@ export default {
 
             let url = '/enroll/api/notify';
 
+            let meta = document.querySelectorAll('meta'),
+                token = '';                    
+            Array.prototype.forEach.call(meta, (item) => {
+                if (item.getAttribute('name') == 'csrf-token') {
+                    token = item.getAttribute('content');
+                }
+            });
+            /**
+             *  获取带 token 的 meta 标签 
+             *  如果有 获取 token
+             */
+
             this.$http.post(url, file, {
-                emulateJSON: true
+                emulateJSON: true,
+                headers: {
+                    'X-CSRF-TOKEN': token
+                }
             })
             .then((res) => {
                 if (res.data.content == "该学生没有报过任何部门!" || res.data.status == 0) {
