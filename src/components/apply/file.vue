@@ -165,7 +165,7 @@ export default {
             this.file_notify = '正在查询已报名的部门 请稍候';
             this.show_file_cover = true;
 
-            let url = 'http://192.168.199.134:8000/enroll/api/notify';
+            let url = '/enroll/api/notify';
 
             this.$http.post(url, file, {
                 emulateJSON: true

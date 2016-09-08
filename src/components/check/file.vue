@@ -64,7 +64,7 @@ export default {
         check_file () {
 
             let data = this.student_file;
-            let url = "http://192.168.199.134:8000/enroll/api/notify";
+            let url = "/enroll/api/notify";
 
             this.$http.post(url, data, {
                 emulateJSON: true
