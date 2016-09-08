@@ -16,6 +16,9 @@ import Choose from './choose'
 import Finish from './finish'
 
 export default {
+    ready () {
+        console.log(233);
+    },
     components: {
         Progress,
         File,

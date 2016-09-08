@@ -150,52 +150,52 @@ export default {
                 this.show_file_cover = true;
                 return;
             }
-            if (!(/2014\d{6}/.test(file.code))) {
-                /* 学号格式填写不对 */
-                this.show_file_cover = true;
-                return;
-            }
+            // if (!(/201\d{7}/.test(file.code))) {
+            //     /* 学号格式填写不对 */
+            //     this.show_file_cover = true;
+            //     return;
+            // }
             if (file.college == "请选择学院") {
                 /* 学院没有填写 */
                 this.show_file_cover = true;
                 return;
             }
 
-            // this.applyData.student_file = file;
-            // this.is_query = true;
-            // this.file_notify = '正在查询已报名的部门 请稍候';
-            // this.show_file_cover = true;
+            this.applyData.student_file = file;
+            this.is_query = true;
+            this.file_notify = '正在查询已报名的部门 请稍候';
+            this.show_file_cover = true;
 
-            // let url = 'http://192.168.199.134:8000/enroll/api/notify';
+            let url = 'http://192.168.199.134:8000/enroll/api/notify';
 
-            // this.$http.post(url, file, {
-            //     emulateJSON: true
-            // })
-            // .then((res) => {
-            //     if (res.data.content == "该学生没有报过任何部门") {
-            //         this.is_query = false;
-            //         this.file_notify = '请将信息正确地填写完整';
-            //         this.show_file_cover = false;   
-            //         this.applyData.current_step = 2;
-            //     } else if(res.data.extra) {
-            //         let data = res.data.extra,
-            //             org = [];
-            //         org = data.map((item, index) => {
-            //             let _obj = {};
-            //             _obj.organization = item[0];
-            //             _obj.department = item[1];
-            //             return _obj; 
-            //         });
-            //         this.is_query = false;
-            //         this.file_notify = '请将信息正确地填写完整';
-            //         this.show_file_cover = false;
-            //         this.applyData.exist_org = org;
-            //         this.applyData.current_step = 2;
-            //     }
-            // }, (res) => {
-            //     this.is_query = false;
-            //     this.file_notify = '网络错误 请检查网络状况';
-            // });
+            this.$http.post(url, file, {
+                emulateJSON: true
+            })
+            .then((res) => {
+                if (res.data.content == "该学生没有报过任何部门") {
+                    this.is_query = false;
+                    this.file_notify = '请将信息正确地填写完整';
+                    this.show_file_cover = false;   
+                    this.applyData.current_step = 2;
+                } else if(res.data.extra) {
+                    let data = res.data.extra,
+                        org = [];
+                    org = data.map((item, index) => {
+                        let _obj = {};
+                        _obj.organization = item[0];
+                        _obj.department = item[1];
+                        return _obj; 
+                    });
+                    this.is_query = false;
+                    this.file_notify = '请将信息正确地填写完整';
+                    this.show_file_cover = false;
+                    this.applyData.exist_org = org;
+                    this.applyData.current_step = 2;
+                }
+            }, (res) => {
+                this.is_query = false;
+                this.file_notify = '网络错误 请检查网络状况';
+            });
 
             /**
              *  这里发一个请求获取数据 
@@ -203,7 +203,7 @@ export default {
              *  否则上一步退回去的时候会出问题
              */
 
-            this.applyData.current_step = 2;
+            // this.applyData.current_step = 2;
         }
     }
 }

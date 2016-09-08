@@ -1,15 +1,17 @@
 <template>
     <section class="result">
         <div class="dialog">
-            不巧<span class="name">{{applyData.student_file.name}}</span>同学 我们在这里等你
+            不巧
+            <span class="name">{{applyData.student_file.name}}</span>
+            同学 我们在这里等你
         </div>
         
         <section class="item-container">
             <div class="item" v-for="item in student_org">
                 <p class="wrapper">
                     <span class="key">部门</span>
-                    <span class="apartment">
-                        {{item.apartment}}
+                    <span class="department">
+                        {{item.department}}
                     </span>
                 </p>
                 <p class="wrapper">
@@ -31,17 +33,18 @@
 
 <script>
 export default {
+    watch : {
+        'applyData.student_org': function (new_value, old_value) {
+            this.student_org = new_value;
+        }
+    },
     props: [
         'applyData'
     ],
     data () {
         return {
             student_org: [
-                {apartment: '红岩网校工作站web研发部', status: '未通过'},
-                {apartment: '红岩网校工作站web研发部', status: '未通过'},
-                {apartment: '红岩网校工作站web研发部', status: '未通过'},
-                {apartment: '红岩网校工作站web研发部', status: '未通过'},
-                {apartment: '红岩网校工作站web研发部', status: '未通过'}
+                {department: '红岩网校工作站web研发部', status: '已报名'}
             ]
         }
     },
@@ -102,7 +105,7 @@ export default {
             letter-spacing: .05rem;
             margin-right: .3rem;
         }
-        .apartment {
+        .department {
             line-height: 1rem;
             font-size: .45rem;
             max-width: 6.5rem;

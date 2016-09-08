@@ -76,6 +76,7 @@ export default {
 }
 .btn-container {
     padding: 0 .75rem;
+    overflow: hidden;
     .btn {
         display: inline-block;
         width: 3.7rem;

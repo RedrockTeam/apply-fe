@@ -1,5 +1,6 @@
 <template>
   <section class="choose">
+  <meta name="csrf-token" content="{{token}}">
     <p class="title">
         选择组织和部门
     </p>
@@ -142,6 +143,7 @@ export default {
              *  submit_notify 提交时候显示的提示消息
              *  cover_notify 选择有误时的提示消息
              *  verify => pass
+             *  token token
              */
             show_cover: false,
             submit_cover: false,
@@ -149,6 +151,7 @@ export default {
             submit_notify: '信息提交后不可修改',
             cover_notify: '选择出现了一些偏差',
             verify: '',
+            token: 'this is token',
             choices: [
                 {
                     organization: '请选择组织', 
@@ -268,11 +271,11 @@ export default {
             chosen_norepeat = _drop_repeat(chosen);
             len = chosen_norepeat.length;
             this.applyData.remain_org = 3 - len;
-            // if (len > 3) {
-            //     this.choices.splice(index, 1);
-            //     this.cover_notify = '最多选择三个组织';
-            //     this.show_cover = true;
-            // }
+            if (len > 3) {
+                this.choices.splice(index, 1);
+                this.cover_notify = '最多选择三个组织';
+                this.show_cover = true;
+            }
         },
         confirm_department (index) {
             let chosen_norepeat = [];
@@ -335,7 +338,7 @@ export default {
         },
         confirm_submit () {
             if (!this.is_submiting) {
-                // this.is_submiting = true;
+                this.is_submiting = true;
                 this.submit_notify = '正在提交 请稍等';
                 this.applyData.student_org = [];
                 /**
@@ -369,7 +372,10 @@ export default {
                     return;
                 } else {
                     this.$http.post(url, data, {
-                        emulateJSON: true
+                        emulateJSON: true,
+                        headers: {
+                            'X-CSRF-TOKEN': this.token
+                        }
                     })
                     .then((res) => {
                         // this.submit_notify = '报名成功';

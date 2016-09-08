@@ -14,7 +14,7 @@
             <span>学号</span>
             <input type="tel" 
                    class="input-text" 
-                   v-model="student_file.id">
+                   v-model="student_file.code">
         </p>
         
         <p class="notify" v-show="show_notify">
@@ -37,6 +37,16 @@
 
 <script>
 export default {
+    ready () {
+        if (localStorage.apply_CQUPT) {
+            let data = JSON.parse(localStorage.apply_CQUPT);
+            this.student_file = {
+                name: data.student_file.name,
+                code: data.student_file.code
+            }
+            /* 一条一条填 免得出 bug */
+        }
+    },
     props: [
         'applyData'
     ],
@@ -44,7 +54,7 @@ export default {
         return {
             student_file: {
                 name: "",
-                id: ""
+                code: ""
             },
             show_notify: true,
             notify: ''
@@ -52,12 +62,73 @@ export default {
     },
     methods: {
         check_file () {
-            this.notify = '姓名与学号不匹配';
-        },
-        next_step () {
-            let file = this.student_file;
-            this.applyData.student_file = this.student_file;
-            this.applyData.current_step = 2;
+
+            let data = this.student_file;
+            let url = "http://192.168.199.134:8000/enroll/api/notify";
+
+            this.$http.post(url, data, {
+                emulateJSON: true
+            })
+            .then((res) => {
+                let content = res.data.content;
+
+                if (content == "该学生没有报过任何部门!") {
+                    this.notify = '你还没有参与报名或信息填写错误';
+                }
+
+                if (res.data.status == 0 && res.data.extra.length > 0) {
+                    this.notify = '查询成功'; 
+                    let extra =  res.data.extra;
+                    let org = [];
+
+                    org = extra.map((item, index) => {
+                        let data = {};
+                        data.department = item.dept_name.replace('|', " ");
+
+                        switch (~~item.current_step) {
+                            case 1:
+                                data.status = "报名成功";
+                                break;
+                            case 2:
+                                data.status = "第一轮通过";
+                                break;    
+                            case 3:
+                                data.status = "第二轮通过";
+                                break;    
+                            case 4:
+                                data.status = "第三轮通过";
+                                break;    
+                            case 5:
+                                data.status = "第四轮通过";
+                                break;
+                            case -2:
+                                data.status = "第一轮未通过";
+                                break;    
+                            case -3:
+                                data.status = "第二轮未通过";
+                                break;    
+                            case -4:
+                                data.status = "第三轮未通过";
+                                break;    
+                            case -5:
+                                data.status = "第四轮未通过";
+                                break;        
+                            default:
+                                data.status = "报名成功";
+                                break;
+                        }
+
+                        return data;
+                    });
+                    
+                    this.applyData.student_org = org;
+                    this.applyData.student_file = this.student_file;
+                    this.applyData.current_step = 2;
+                }
+
+            }, (res) => {
+                this.notify = '网络有问题';
+            });
         }
     }
 }
