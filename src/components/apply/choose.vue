@@ -405,8 +405,9 @@ export default {
                                 this.submit_notify = '错误';
                                 break;
                         }
+                        this.is_submiting = false;
                     }, (res) => {
-                        console.log('fal');
+                        this.submit_notify = '网络错误';
                     });
                 }
                 
