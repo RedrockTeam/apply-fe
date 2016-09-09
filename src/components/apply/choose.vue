@@ -115,6 +115,7 @@ export default {
         'applyData.exist_org': function (new_value, old_value) {
             if (new_value.length != 0) {
                 this.choices = new_value;    
+                console.log("数据变化 有报过的部门");
             } else {
                 this.choices = [
                     {
@@ -360,6 +361,7 @@ export default {
                 
                 let data = {};
                 let url = "/enroll/api/handle";
+                // let url = 'http://192.168.199.134:8000/enroll/api/handle';
 
                 data = this.applyData.student_file;
                 data.choice = this.applyData.student_org;

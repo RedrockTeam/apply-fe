@@ -166,6 +166,7 @@ export default {
             this.show_file_cover = true;
 
             let url = '/enroll/api/notify';
+            // let url = 'http://192.168.199.134:8000/enroll/api/notify';
 
             let meta = document.querySelectorAll('meta'),
                 token = '';                    
@@ -194,6 +195,10 @@ export default {
                 } else if(res.data.extra) {
                     let data = res.data.extra,
                         org = [];
+
+                    console.log("有报过部门，部门是");
+                    console.log(data);    
+                    
                     org = data.map((item, index) => {
                         let _obj = {};
                         _obj.organization = item[0];
