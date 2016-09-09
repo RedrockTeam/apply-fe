@@ -187,18 +187,10 @@ export default {
                 }
             })
             .then((res) => {
-                if (res.data.content == "该学生没有报过任何部门!" || res.data.status == 0) {
-                    this.is_query = false;
-                    this.file_notify = '请将信息正确地填写完整';
-                    this.show_file_cover = false;   
-                    this.applyData.current_step = 2;
-                } else if(res.data.extra) {
+                if(res.data.extra) {
                     let data = res.data.extra,
                         org = [];
 
-                    console.log("有报过部门，部门是");
-                    console.log(data);    
-                    
                     org = data.map((item, index) => {
                         let _obj = {};
                         _obj.organization = item[0];
@@ -209,6 +201,11 @@ export default {
                     this.file_notify = '请将信息正确地填写完整';
                     this.show_file_cover = false;
                     this.applyData.exist_org = org;
+                    this.applyData.current_step = 2;
+                } else if (res.data.content == "该学生没有报过任何部门!" || !res.data.extra) {
+                    this.is_query = false;
+                    this.file_notify = '请将信息正确地填写完整';
+                    this.show_file_cover = false;   
                     this.applyData.current_step = 2;
                 }
             }, (res) => {
