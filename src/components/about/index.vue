@@ -44,7 +44,7 @@ export default {
                 ],
                 [
                     {organization: '科技联合会', img: '/static/images/logo-kl.png', href: 'http://b61.rrxiu.me/v/ikq34i'},
-                    {organization: '红岩网校工作站', img: '/static/images/logo-hy.png', href: ''},
+                    {organization: '红岩网校工作站', img: '/static/images/logo-hy.png', href: 'http://hongyan.cqupt.edu.cn/2016joinus/'},
                     {organization: '社团联合会', img: '/static/images/logo-sl.png', href: 'http://u1380763.jisuapp.cn/s?id=1936916'}
                 ],
                 [
