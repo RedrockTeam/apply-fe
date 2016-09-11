@@ -144,6 +144,12 @@ export default {
                 "data" : data,
                 "success" : function(data){
                   alert(data);
+                  alert(typeof data);
+                  alert(data.status);
+                  alert(data["status"]);
+                  alert(data.extra);
+                  alert(data.content);
+                  alert(data.content.toString());
                 },
                 "Error" : function(text){
                   alert(text);
