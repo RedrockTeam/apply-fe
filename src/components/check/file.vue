@@ -77,7 +77,10 @@ export default {
                 if (content == "该学生没有报过任何部门!") {
                     this.notify = '你还没有参与报名或信息填写错误';
                 }
-
+                alert('res');
+                alert(JSON.stringify(res));
+                alert('res.data');
+                alert(JSON.stringify(res.data));
                 alert("res.data.status");
                 alert(res.data.status);
                 alert(res.data.status == 0);
