@@ -146,7 +146,7 @@ export default {
                 "success" : function(data){
                     let res = JSON.parse(data);
                     alert(res.status);
-                    alert(res.extra[0].department);
+                    alert(res.extra[0].dept_name);
                     if (res.status == 0) {
                         this.notify = '查询成功';
                         let extra = res.extra;
@@ -195,7 +195,8 @@ export default {
                         vm.applyData.student_file = this.student_file;
                         // vm.applyData.current_step = 2;
                         alert("这个 ajax 可以用");
-                        alert(vm.applyData.student_file);
+                        alert(vm.applyData.student_org);
+                        alert(vm.applyData.current_step);
                     }
                 },
                 "Error" : function(data){
@@ -217,7 +218,8 @@ export default {
 
                 alert(res.body);
                 alert(JSON.stringify(res.body));
-                alert(JSON.stringify(res.body).status);
+                alert(JSON.parse(res.body).status);
+                alert(JSON.parse(res.body).extra[0].dept_name);
 
                 if (res.data.status == 0 && res.data.extra) {
                     this.notify = '查询成功'; 
