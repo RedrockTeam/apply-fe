@@ -144,12 +144,13 @@ export default {
                 "data" : data,
                 "success" : function(data){
                   alert(data);
+                  let obj = JSON.parse(data);
                   alert(typeof data);
-                  alert(data.status);
-                  alert(data["status"]);
-                  alert(data.extra);
-                  alert(data.content);
-                  alert(data.content.toString());
+                  alert(typeof obj);
+                  alert(obj.status);
+                  alert(obj["status"]);
+                  alert(obj.extra);
+                  alert(obj.content);
                 },
                 "Error" : function(text){
                   alert(text);
