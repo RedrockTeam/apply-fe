@@ -121,11 +121,10 @@ export default {
                                 data.status = "报名成功";
                                 break;
                         }
-
                         return data;
                     });
 
-                    alert("查询成功");
+                    alert("查询成功 修改之前");
                     alert(this.applyData.student_org);
                     alert(this.applyData.student_file);
                     alert(this.applyData.current_step);
@@ -134,6 +133,7 @@ export default {
                     this.applyData.student_file = this.student_file;
                     this.applyData.current_step = 2;
 
+                    alert("修改之后");
                     alert(this.applyData.student_org);
                     alert(this.applyData.student_file);
                     alert(this.applyData.current_step);
