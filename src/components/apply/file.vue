@@ -206,7 +206,7 @@ export default {
                     this.show_file_cover = false;
                     this.applyData.exist_org = org;
                     this.applyData.current_step = 2;
-                } else if (res.data.content == "该学生没有报过任何部门!" || !res.data.extra) {
+                } else if (body.content == "该学生没有报过任何部门!" || !body.extra) {
                     this.is_query = false;
                     this.file_notify = '请将信息正确地填写完整';
                     this.show_file_cover = false;   
