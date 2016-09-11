@@ -11,6 +11,9 @@
         <p class="notify">
             每人最多可以参加3个组织 同一组织可以报多个部门
         </p>
+        <p class="notify">
+            报名成功后 请稍后进入查看状态 数据可能会有延迟
+        </p>
         <div class="btn">
             <a v-link="{path: '/about'}">
               了解组织

@@ -22,11 +22,11 @@
                     </option>
                     <option disabled="disabled" 
                             v-else>
-                        已提交不能修改
+                        {{choice.organization}}
                     </option>
                     <option v-for="organization in organizations" 
                             v-bind:value="organization.value"
-                            v-show="choice.removable">
+                            v-if="choice.removable">
                         {{organization.value}}
                     </option>
                 </select>
@@ -41,11 +41,11 @@
                     </option>
                     <option disabled="disabled" 
                             v-else>
-                        已提交不能修改
+                        {{choice.department}}
                     </option>
                     <option v-for="department in departments[choice.organization]"
                             v-bind:value="department" 
-                            v-show="choice.removable">
+                            v-if="choice.removable">
                         {{department}}
                     </option>
                 </select>
@@ -359,7 +359,6 @@ export default {
                 
                 let data = {};
                 let url = "/enroll/api/handle";
-                // let url = 'http://192.168.199.134:8000/enroll/api/handle';
 
                 data = this.applyData.student_file;
                 data.choice = this.applyData.student_org;
