@@ -65,6 +65,7 @@ export default {
 
             let data = this.student_file;
             let url = "/enroll/api/notify";
+            let vm = this;
 
             this.notify = '正在查询 请稍候';
 // ajax
@@ -144,7 +145,9 @@ export default {
                 "data" : data,
                 "success" : function(data){
                     let res = JSON.parse(data);
-                    if (res.status == 0 && res.extra) {
+                    alert(res.status);
+                    alert(res.extra[0].department);
+                    if (res.status == 0) {
                         this.notify = '查询成功';
                         let extra = res.extra;
                         let org = [];
@@ -187,9 +190,12 @@ export default {
                             }
                             return data;
                         });
-                        this.applyData.student_org = org;
-                        this.applyData.student_file = this.student_file;
-                        this.applyData.current_step = 2;
+
+                        vm.applyData.student_org = org;
+                        vm.applyData.student_file = this.student_file;
+                        // vm.applyData.current_step = 2;
+                        alert("这个 ajax 可以用");
+                        alert(vm.applyData.student_file);
                     }
                 },
                 "Error" : function(data){
@@ -198,7 +204,7 @@ export default {
                 "async" : false
             });
 
-/*
+
             this.$http.post(url, data, {
                 emulateJSON: true
             })
@@ -209,79 +215,63 @@ export default {
                     this.notify = '你还没有参与报名或信息填写错误';
                 }
 
-                alert('res 全部');
-                alert(res);
-                alert('res 转字符');
-                let str = JSON.stringify(res);
-                alert(str);
-                alert("_res 再封装");
-                let _res = JSON.parse(str);
-                alert(_res);
-                alert("_res 数据类型");
-                alert(Object.prototype.toString.call(_res));
+                alert(res.body);
+                alert(JSON.stringify(res.body));
+                alert(JSON.stringify(res.body).status);
 
-                alert("_res headers");
-                alert(JSON.stringify(_res.headers));
-                alert("_res headers ...parsed");
-                var a = JSON.stringify(_res.headers);
-                var b = JSON.parse(a);
-                alert(b);
-                alert("_res data");
-                alert(_res.data);
+                if (res.data.status == 0 && res.data.extra) {
+                    this.notify = '查询成功'; 
+                    let extra =  res.data.extra;
+                    let org = [];
 
-                // if (res.data.status == 0 && res.data.extra) {
-                //     this.notify = '查询成功'; 
-                //     let extra =  res.data.extra;
-                //     let org = [];
+                    org = extra.map((item, index) => {
+                        let data = {};
+                        data.department = item.dept_name.replace('|', " ");
+                        // data.department = item.dept_name[0] + " " item.dept_name[1];
+                        //  9-11 修改部门判断
 
-                //     org = extra.map((item, index) => {
-                //         let data = {};
-                //         data.department = item.dept_name.replace('|', " ");
-                //         // data.department = item.dept_name[0] + " " item.dept_name[1];
-                //         //  9-11 修改部门判断
-
-                //         switch (~~item.current_step) {
-                //             case 1:
-                //                 data.status = "报名成功";
-                //                 break;
-                //             case 2:
-                //                 data.status = "第一轮通过";
-                //                 break;    
-                //             case 3:
-                //                 data.status = "第二轮通过";
-                //                 break;    
-                //             case 4:
-                //                 data.status = "第三轮通过";
-                //                 break;    
-                //             case 5:
-                //                 data.status = "第四轮通过";
-                //                 break;
-                //             case -2:
-                //                 data.status = "第一轮未通过";
-                //                 break;    
-                //             case -3:
-                //                 data.status = "第二轮未通过";
-                //                 break;    
-                //             case -4:
-                //                 data.status = "第三轮未通过";
-                //                 break;    
-                //             case -5:
-                //                 data.status = "第四轮未通过";
-                //                 break;        
-                //             default:
-                //                 data.status = "报名成功";
-                //                 break;
-                //         }
-                //         return data;
-                //     });
-                //     this.applyData.student_org = org;
-                //     this.applyData.student_file = this.student_file;
-                //     this.applyData.current_step = 2;
-                // }
+                        switch (~~item.current_step) {
+                            case 1:
+                                data.status = "报名成功";
+                                break;
+                            case 2:
+                                data.status = "第一轮通过";
+                                break;    
+                            case 3:
+                                data.status = "第二轮通过";
+                                break;    
+                            case 4:
+                                data.status = "第三轮通过";
+                                break;    
+                            case 5:
+                                data.status = "第四轮通过";
+                                break;
+                            case -2:
+                                data.status = "第一轮未通过";
+                                break;    
+                            case -3:
+                                data.status = "第二轮未通过";
+                                break;    
+                            case -4:
+                                data.status = "第三轮未通过";
+                                break;    
+                            case -5:
+                                data.status = "第四轮未通过";
+                                break;        
+                            default:
+                                data.status = "报名成功";
+                                break;
+                        }
+                        return data;
+                    });
+                    // this.applyData.student_org = org;
+                    // this.applyData.student_file = this.student_file;
+                    // this.applyData.current_step = 2;
+                }
             }, (res) => {
                 this.notify = '网络有问题';
             });
-*/            
+     
         }
     }
 }
