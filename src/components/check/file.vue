@@ -77,6 +77,12 @@ export default {
                 if (content == "该学生没有报过任何部门!") {
                     this.notify = '你还没有参与报名或信息填写错误';
                 }
+
+                alert('res');
+                let str = JSON.stringify(res);
+
+                let res = JSON.parse(res);
+
                 alert('res');
                 alert(JSON.stringify(res));
                 alert('res.data');
@@ -84,71 +90,60 @@ export default {
                 alert("res.data.status");
                 alert(res.data.status);
                 alert(res.data.status == 0);
-                alert("res.data.extra");
-                alert(res.data.extra);
-                alert(res.data.extra.length);
-                alert(Object.prototype.toString.call(res.data.extra));
+                // alert("res.data.extra");
+                // alert(res.data.extra);
+                // alert(res.data.extra.length);
+                // alert(Object.prototype.toString.call(res.data.extra));
 
-                if (res.data.status == 0 && res.data.extra) {
-                    this.notify = '查询成功'; 
-                    let extra =  res.data.extra;
-                    let org = [];
+                // if (res.data.status == 0 && res.data.extra) {
+                //     this.notify = '查询成功'; 
+                //     let extra =  res.data.extra;
+                //     let org = [];
 
-                    org = extra.map((item, index) => {
-                        let data = {};
-                        data.department = item.dept_name.replace('|', " ");
-                        // data.department = item.dept_name[0] + " " item.dept_name[1];
-                        //  9-11 修改部门判断
+                //     org = extra.map((item, index) => {
+                //         let data = {};
+                //         data.department = item.dept_name.replace('|', " ");
+                //         // data.department = item.dept_name[0] + " " item.dept_name[1];
+                //         //  9-11 修改部门判断
 
-                        switch (~~item.current_step) {
-                            case 1:
-                                data.status = "报名成功";
-                                break;
-                            case 2:
-                                data.status = "第一轮通过";
-                                break;    
-                            case 3:
-                                data.status = "第二轮通过";
-                                break;    
-                            case 4:
-                                data.status = "第三轮通过";
-                                break;    
-                            case 5:
-                                data.status = "第四轮通过";
-                                break;
-                            case -2:
-                                data.status = "第一轮未通过";
-                                break;    
-                            case -3:
-                                data.status = "第二轮未通过";
-                                break;    
-                            case -4:
-                                data.status = "第三轮未通过";
-                                break;    
-                            case -5:
-                                data.status = "第四轮未通过";
-                                break;        
-                            default:
-                                data.status = "报名成功";
-                                break;
-                        }
-                        return data;
-                    });
-
-                    // alert("查询成功 修改之前");
-                    // alert(this.applyData.student_org);
-                    // alert(this.applyData.student_file);
-                    // alert(this.applyData.current_step);
-
-                    this.applyData.student_org = org;
-                    this.applyData.student_file = this.student_file;
-                    this.applyData.current_step = 2;
-
-                    // alert("修改之后");
-                    // alert(this.applyData.student_org);
-                    // alert(this.applyData.student_file);
-                    // alert(this.applyData.current_step);
-                }
+                //         switch (~~item.current_step) {
+                //             case 1:
+                //                 data.status = "报名成功";
+                //                 break;
+                //             case 2:
+                //                 data.status = "第一轮通过";
+                //                 break;    
+                //             case 3:
+                //                 data.status = "第二轮通过";
+                //                 break;    
+                //             case 4:
+                //                 data.status = "第三轮通过";
+                //                 break;    
+                //             case 5:
+                //                 data.status = "第四轮通过";
+                //                 break;
+                //             case -2:
+                //                 data.status = "第一轮未通过";
+                //                 break;    
+                //             case -3:
+                //                 data.status = "第二轮未通过";
+                //                 break;    
+                //             case -4:
+                //                 data.status = "第三轮未通过";
+                //                 break;    
+                //             case -5:
+                //                 data.status = "第四轮未通过";
+                //                 break;        
+                //             default:
+                //                 data.status = "报名成功";
+                //                 break;
+                //         }
+                //         return data;
+                //     });
+                //     this.applyData.student_org = org;
+                //     this.applyData.student_file = this.student_file;
+                //     this.applyData.current_step = 2;
+                // }
             }, (res) => {
                 this.notify = '网络有问题';
             });
