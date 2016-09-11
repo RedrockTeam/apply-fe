@@ -88,23 +88,11 @@ export default {
                 alert(_res);
                 alert("_res 数据类型");
                 alert(Object.prototype.toString.call(_res));
-                alert("_res header");
-                alert(_res.header);
+
                 alert("_res headers");
-                alert(_res.headers);
-                alert("_res data header");
-                alert(_res.data.header);
+                alert(JSON.stringify(_res.headers));
                 alert("_res data");
                 alert(_res.data);
-
-                // alert('_res');
-                // alert(JSON.stringify(_res));
-                alert('_res.data');
-                alert(JSON.stringify(_res.data));
-                alert("_res.data.status");
-                alert(_res.data.status == 0);
-                alert("_res['data']['status']");
-                alert(_res['data']['status']);
 
                 // if (res.data.status == 0 && res.data.extra) {
                 //     this.notify = '查询成功'; 
