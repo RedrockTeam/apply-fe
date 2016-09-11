@@ -73,6 +73,9 @@ export default {
             })
             .then((res) => {
                 let content = res.data.content;
+                
+                console.log("res.data");
+                console.log(res.data);
 
                 if (content == "该学生没有报过任何部门!") {
                     this.notify = '你还没有参与报名或信息填写错误';

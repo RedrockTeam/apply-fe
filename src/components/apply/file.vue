@@ -137,13 +137,6 @@ export default {
         next_step () {
             let file = this.student_file;
 
-            // for (let key in file) {
-            //     if (file[key].length == 0) {
-            //         this.show_file_cover = true;
-            //         return;
-            //     }
-            // }
-
             if (file.name.length == 0) {
                 this.show_file_cover = true;
                 return;
@@ -175,7 +168,6 @@ export default {
             this.show_file_cover = true;
 
             let url = '/enroll/api/notify';
-            // let url = 'http://192.168.199.134:8000/enroll/api/notify';
 
             let meta = document.querySelectorAll('meta'),
                 token = '';                    
@@ -188,6 +180,7 @@ export default {
              *  获取带 token 的 meta 标签 
              *  如果有 获取 token
              */
+            console.log("Token 获取 " + token);
 
             this.$http.post(url, file, {
                 emulateJSON: true,
@@ -196,6 +189,9 @@ export default {
                 }
             })
             .then((res) => {
+                console.log("res.data");
+                console.log(res.data);
+
                 if(res.data.extra) {
                     let data = res.data.extra,
                         org = [];
