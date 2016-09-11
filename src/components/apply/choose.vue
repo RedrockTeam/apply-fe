@@ -392,15 +392,12 @@ export default {
                             status_msg = res.data.content;
 
                         switch (status_code) {
-                            case -10:
-                                this.submit_notify = status_msg;
-                                break;
                             case 0:
                                 this.submit_notify = status_msg;
                                 this.applyData.current_step = 3;
                                 break;                
                             default: 
-                                this.submit_notify = '错误';
+                                this.submit_notify = status_msg;
                                 break;
                         }
                         this.is_submiting = false;
