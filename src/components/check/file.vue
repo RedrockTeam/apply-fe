@@ -73,7 +73,7 @@ export default {
                 emulateJSON: true
             })
             .then((res) => {
-                let res_data = res;
+                let res_data = res.data;
                 if (typeof res_data === 'string') {
                     res_data = JSON.parse(res_data);
                 }
