@@ -65,7 +65,15 @@ export default {
 
             let data = this.student_file;
             let url = "/enroll/api/notify";
-            let vm = this;
+
+            if (/[0-9A-Za-z]/.test(data.name)) {
+                this.notify = '请填写正确的姓名';                
+                return;
+            }
+            if (!(/201\d{7}/.test(data.code))) {
+                this.notify = '请填写正确的学号';
+                return;                
+            }
 
             this.notify = '正在查询 请稍候';
 
@@ -86,8 +94,9 @@ export default {
                     res_data_extra = res_data.extra;
                 }
 
-                if (content == "该学生没有报过任何部门!") {
-                    this.notify = '你还没有参与报名或信息填写错误';
+                if (res_data_extra.length == 0) {
+                    this.notify = '你还没有参与报名或信息填写有误';
+                    return;
                 }
 
                 if (status == 0 && res_data_extra) {

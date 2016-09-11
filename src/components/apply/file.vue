@@ -173,6 +173,7 @@ export default {
             this.is_query = true;
             this.file_notify = '正在查询已报名的部门 请稍候';
             this.show_file_cover = true;
+            this.applyData.exist_org = [];
 
             let url = '/enroll/api/notify';
 
