@@ -78,6 +78,14 @@ export default {
                     this.notify = '你还没有参与报名或信息填写错误';
                 }
 
+                alert("res.data.status");
+                alert(res.data.status);
+                alert(res.data.status == 0);
+                alert("res.data.extra");
+                alert(res.data.extra);
+                alert(res.data.extra.length);
+                alert(Object.prototype.toString.call(res.data.extra));
+
                 if (res.data.status == 0 && res.data.extra) {
                     this.notify = '查询成功'; 
                     let extra =  res.data.extra;
@@ -124,19 +132,19 @@ export default {
                         return data;
                     });
 
-                    alert("查询成功 修改之前");
-                    alert(this.applyData.student_org);
-                    alert(this.applyData.student_file);
-                    alert(this.applyData.current_step);
+                    // alert("查询成功 修改之前");
+                    // alert(this.applyData.student_org);
+                    // alert(this.applyData.student_file);
+                    // alert(this.applyData.current_step);
 
                     this.applyData.student_org = org;
                     this.applyData.student_file = this.student_file;
                     this.applyData.current_step = 2;
 
-                    alert("修改之后");
-                    alert(this.applyData.student_org);
-                    alert(this.applyData.student_file);
-                    alert(this.applyData.current_step);
+                    // alert("修改之后");
+                    // alert(this.applyData.student_org);
+                    // alert(this.applyData.student_file);
+                    // alert(this.applyData.current_step);
                 }
             }, (res) => {
                 this.notify = '网络有问题';
