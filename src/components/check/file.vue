@@ -80,7 +80,7 @@ export default {
 
                 alert('res');
                 let str = JSON.stringify(res);
-                let res = JSON.parse(res);
+                let res = JSON.parse(str);
 
                 alert('res');
                 alert(JSON.stringify(res));
