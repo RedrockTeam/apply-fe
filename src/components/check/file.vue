@@ -69,72 +69,72 @@ export default {
             this.notify = '正在查询 请稍候';
 // ajax
             function createXHR(){
-              if(typeof XMLHttpRequest != "undefined"){ // 非IE6浏览器
-                return new XMLHttpRequest();
-              }else if(typeof ActiveXObject != "undefined"){   // IE6浏览器
-                var version = [
-                      "MSXML2.XMLHttp.6.0",
-                      "MSXML2.XMLHttp.3.0",
-                      "MSXML2.XMLHttp",
-                ];
-                for(var i = 0; i < version.length; i++){
-                  try{
-                    return new ActiveXObject(version[i]);
-                  }catch(e){
-                    //跳过
-                  }
+                if(typeof XMLHttpRequest != "undefined"){ // 非IE6浏览器
+                    return new XMLHttpRequest();
+                }else if(typeof ActiveXObject != "undefined"){   // IE6浏览器
+                    var version = [
+                    "MSXML2.XMLHttp.6.0",
+                    "MSXML2.XMLHttp.3.0",
+                    "MSXML2.XMLHttp",
+                    ];
+                    for(var i = 0; i < version.length; i++){
+                        try{
+                            return new ActiveXObject(version[i]);
+                        }catch(e){
+                        //跳过
+                        }
+                    }
+                }else{
+                    throw new Error("您的系统或浏览器不支持XHR对象！");
                 }
-              }else{
-                throw new Error("您的系统或浏览器不支持XHR对象！");
-              }
             }
             // 转义字符
             function params(data){
-              var arr = [];
-              for(var i in data){
-                arr.push(encodeURIComponent(i) + "=" + encodeURIComponent(data[i]));
-              }
-              return arr.join("&");
+                var arr = [];
+                for(var i in data){
+                    arr.push(encodeURIComponent(i) + "=" + encodeURIComponent(data[i]));
+                }
+                return arr.join("&");
             }
             // 封装ajax
             function ga_ajax(obj){
-              var xhr = createXHR();
-              obj.url = obj.url + "?rand=" + Math.random(); // 清除缓存
-              obj.data = params(obj.data);      // 转义字符串
-              if(obj.method === "get"){      // 判断使用的是否是get方式发送
-                obj.url += obj.url.indexOf("?") == "-1" ? "?" + obj.data : "&" + obj.data;
-              }
-              // 异步
-              if(obj.async === true){
+                var xhr = createXHR();
+                obj.url = obj.url + "?rand=" + Math.random(); // 清除缓存
+                obj.data = params(obj.data);      // 转义字符串
+                if(obj.method === "get"){      // 判断使用的是否是get方式发送
+                    obj.url += obj.url.indexOf("?") == "-1" ? "?" + obj.data : "&" + obj.data;
+                }
+                // 异步
+                if(obj.async === true){
                 // 异步的时候需要触发onreadystatechange事件
-                xhr.onreadystatechange = function(){
-                  // 执行完成
-                  if(xhr.readyState == 4){
-                    callBack();
-                  }
+                    xhr.onreadystatechange = function(){
+                    // 执行完成
+                    if(xhr.readyState == 4){
+                        callBack();
+                    }
+                    }
                 }
-              }
-              xhr.open(obj.method,obj.url,obj.async);  // false是同步 true是异步 // "demo.php?rand="+Math.random()+"&name=ga&ga",
-              if(obj.method === "post"){
-                xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-                xhr.send(obj.data);
-              }else{
-                xhr.send(null);
-              }
-              // xhr.abort(); // 取消异步请求
-              // 同步
-              if(obj.async === false){
-                callBack();
-              }
-              // 返回数据
-              function callBack(){
-                // 判断是否返回正确
-                if(xhr.status == 200){
-                  obj.success(xhr.responseText);
+                xhr.open(obj.method,obj.url,obj.async);  // false是同步 true是异步
+                if(obj.method === "post"){
+                    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                    xhr.send(obj.data);
                 }else{
-                  obj.Error("获取数据失败，错误代号为："+xhr.status+"错误信息为："+xhr.statusText);
+                    xhr.send(null);
                 }
-              }
+                // xhr.abort(); // 取消异步请求
+                // 同步
+                if(obj.async === false){
+                    callBack();
+                }
+                // 返回数据
+                function callBack(){
+                    // 判断是否返回正确
+                    if(xhr.status == 200){
+                        obj.success(xhr.responseText);
+                    }else{
+                        obj.Error("获取数据失败，错误代号为："+xhr.status+"错误信息为："+xhr.statusText);
+                    }
+                }
             }
 // ajax      
     
@@ -143,22 +143,60 @@ export default {
                 "url" : url,
                 "data" : data,
                 "success" : function(data){
-                  alert(data);
-                  let obj = JSON.parse(data);
-                  alert(typeof data);
-                  alert(typeof obj);
-                  alert(obj.status);
-                  alert(obj["status"]);
-                  alert(obj.extra);
-                  alert(obj.content);
+                    let res = JSON.parse(data);
+                    if (res.status == 0 && res.extra) {
+                        this.notify = '查询成功';
+                        let extra = res.extra;
+                        let org = [];
+
+                        org = extra.map((item, index) => {
+                            let data = {};
+                            data.department = item.dept_name.replace('|', " ");
+
+                            switch (~~item.current_step) {
+                                case 1:
+                                    data.status = "报名成功";
+                                    break;
+                                case 2:
+                                    data.status = "第一轮通过";
+                                    break;    
+                                case 3:
+                                    data.status = "第二轮通过";
+                                    break;    
+                                case 4:
+                                    data.status = "第三轮通过";
+                                    break;    
+                                case 5:
+                                    data.status = "第四轮通过";
+                                    break;
+                                case -2:
+                                    data.status = "第一轮未通过";
+                                    break;    
+                                case -3:
+                                    data.status = "第二轮未通过";
+                                    break;    
+                                case -4:
+                                    data.status = "第三轮未通过";
+                                    break;    
+                                case -5:
+                                    data.status = "第四轮未通过";
+                                    break;        
+                                default:
+                                    data.status = "报名成功";
+                                    break;
+                            }
+                            return data;
+                        });
+                        this.applyData.student_org = org;
+                        this.applyData.student_file = this.student_file;
+                        this.applyData.current_step = 2;
+                    }
                 },
-                "Error" : function(text){
-                  alert(text);
+                "Error" : function(data){
+                    this.notify = '网络有问题';
                 },
                 "async" : false
-              });
-
-
+            });
 
 /*
             this.$http.post(url, data, {
