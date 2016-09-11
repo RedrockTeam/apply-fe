@@ -133,11 +133,13 @@ export default {
     methods: {
         close_file_cover () {
             this.show_file_cover = false;
+            this.file_notify = '请将信息填写完整';
         },
         next_step () {
             let file = this.student_file;
 
-            if (file.name.length == 0) {
+            if (file.name.length == 0 || /[0-9A-Za-z]/.test(file.name)) {
+                this.file_notify = '请填写正确的姓名';
                 this.show_file_cover = true;
                 return;
             }
@@ -146,18 +148,23 @@ export default {
                 return;
             }
 
-            if (!(/(^(13\d|15[^4\D]|17[13678]|18\d)\d{8}|170[^346\D]\d{7})$/.test(file.contact))) {
-                /* 电话格式填写不对 */
+            if (!(/201\d{7}/.test(file.code))) {
+                /* 学号格式填写不对 */
+                this.file_notify = '请填写正确的学号';
                 this.show_file_cover = true;
                 return;
             }
-            // if (!(/201\d{7}/.test(file.code))) {
-            //     /* 学号格式填写不对 */
-            //     this.show_file_cover = true;
-            //     return;
-            // }
+
             if (file.college == "请选择学院") {
                 /* 学院没有填写 */
+                this.file_notify = '请填写学院';
+                this.show_file_cover = true;
+                return;
+            }
+
+            if (!(/(^(13\d|15[^4\D]|17[13678]|18\d)\d{8}|170[^346\D]\d{7})$/.test(file.contact))) {
+                /* 电话格式填写不对 */
+                this.file_notify = '请填写正确的电话号码';
                 this.show_file_cover = true;
                 return;
             }
