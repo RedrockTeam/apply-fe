@@ -180,7 +180,6 @@ export default {
              *  获取带 token 的 meta 标签 
              *  如果有 获取 token
              */
-            console.log("Token 获取 " + token);
 
             this.$http.post(url, file, {
                 emulateJSON: true,
@@ -189,11 +188,10 @@ export default {
                 }
             })
             .then((res) => {
-                console.log("res.data");
-                console.log(res.data);
+                let body = JSON.parse(res.body);
 
-                if(res.data.extra) {
-                    let data = res.data.extra,
+                if(body.extra) {
+                    let data = body.extra,
                         org = [];
 
                     org = data.map((item, index) => {
