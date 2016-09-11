@@ -80,7 +80,6 @@ export default {
 
                 alert('res');
                 let str = JSON.stringify(res);
-
                 let res = JSON.parse(res);
 
                 alert('res');
@@ -90,6 +89,8 @@ export default {
                 alert("res.data.status");
                 alert(res.data.status);
                 alert(res.data.status == 0);
+                alert("res[data][status]");
+                alert(res[data][status]);
                 // alert("res.data.extra");
                 // alert(res.data.extra);
                 // alert(res.data.extra.length);
