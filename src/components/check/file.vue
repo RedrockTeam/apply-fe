@@ -82,19 +82,15 @@ export default {
                 let str = JSON.stringify(res);
                 let _res = JSON.parse(str);
 
-                alert('_res');
-                alert(JSON.stringify(_res));
+                // alert('_res');
+                // alert(JSON.stringify(_res));
                 alert('_res.data');
                 alert(JSON.stringify(_res.data));
-                alert("_res.data.status");
-                alert(_res.data.status);
+                alert("_res.data.headers");
+                alert(_res.data.headers);
                 alert(_res.data.status == 0);
-                alert("_res[data][status]");
-                alert(_res[data][status]);
-                // alert("res.data.extra");
-                // alert(res.data.extra);
-                // alert(res.data.extra.length);
-                // alert(Object.prototype.toString.call(res.data.extra));
+                alert("_res['data']['status']");
+                alert(_res['data']['status']);
 
                 // if (res.data.status == 0 && res.data.extra) {
                 //     this.notify = '查询成功'; 
