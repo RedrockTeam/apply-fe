@@ -83,7 +83,9 @@ export default {
 
                     org = extra.map((item, index) => {
                         let data = {};
-                        data.department = item.dept_name.replace('|', " ");
+                        // data.department = item.dept_name.replace('|', " ");
+                        data.department = item.dept_name[0] + " " item.dept_name[1];
+                        //  9-11 修改部门判断
 
                         switch (~~item.current_step) {
                             case 1:

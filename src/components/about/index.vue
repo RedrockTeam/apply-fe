@@ -48,9 +48,9 @@ export default {
                     {organization: '社团联合会', img: '/static/images/logo-sl.png', href: 'http://u1380763.jisuapp.cn/s?id=1936916'}
                 ],
                 [
-                    {organization: '大学生艺术团', img: '/static/images/logo-dyt.png', href: 'http://h5.rrxiu.net/v/nxs2xo'},
+                    {organization: '学生会', img: '/static/images/logo-xsh.png', href: 'http://b61.rrxiu.me/v/4hbitl?from_code=5897fe5273c16e98fc6cd27fdc4b9f60'},
                     {organization: '团委组织部', img: '/static/images/logo-tw.png', href: 'http://u1380875.jisuapp.cn/s?id=1951983'},
-                    {organization: '学生会', img: '/static/images/logo-xsh.png', href: 'http://b61.rrxiu.me/v/4hbitl?from_code=5897fe5273c16e98fc6cd27fdc4b9f60'}
+                    {organization: '大学生艺术团', img: '/static/images/logo-dyt.png', href: 'http://h5.rrxiu.net/v/nxs2xo'}
                 ]
             ]
         }
