@@ -137,11 +137,20 @@ export default {
         next_step () {
             let file = this.student_file;
 
-            for (let key in file) {
-                if (file[key].length == 0) {
-                    this.show_file_cover = true;
-                    return;
-                }
+            // for (let key in file) {
+            //     if (file[key].length == 0) {
+            //         this.show_file_cover = true;
+            //         return;
+            //     }
+            // }
+
+            if (file.name.length == 0) {
+                this.show_file_cover = true;
+                return;
+            }
+            if (file.code.length == 0) {
+                this.show_file_cover = true;
+                return;
             }
 
             if (!(/(^(13\d|15[^4\D]|17[13678]|18\d)\d{8}|170[^346\D]\d{7})$/.test(file.contact))) {
