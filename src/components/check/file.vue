@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="btn" 
-                 @touchend="check_file">
+                 @click="check_file">
                 下一步
             </div>
         </div>
@@ -65,6 +65,8 @@ export default {
 
             let data = this.student_file;
             let url = "/enroll/api/notify";
+
+            this.notify = '正在查询 请稍候';
 
             this.$http.post(url, data, {
                 emulateJSON: true

@@ -61,10 +61,10 @@
     </section>
 
     <div class="btn-container">
-        <div class="btn" @touchend="prev_step">
+        <div class="btn" @click="prev_step">
             上一步
         </div>
-        <div class="btn" @touchend="show_submit_cover">
+        <div class="btn" @click="show_submit_cover">
             确认
         </div>
     </div>

@@ -59,7 +59,7 @@
             </a>
         </div>
         <div class="btn" 
-             @touchend="next_step">
+             @click="next_step">
             下一步
         </div>
     </div>
@@ -206,6 +206,7 @@ export default {
                         _obj.department = item[1];
                         return _obj; 
                     });
+
                     this.is_query = false;
                     this.file_notify = '请将信息正确地填写完整';
                     this.show_file_cover = false;
