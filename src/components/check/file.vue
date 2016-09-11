@@ -92,7 +92,9 @@ export default {
                 alert("_res headers");
                 alert(JSON.stringify(_res.headers));
                 alert("_res headers ...parsed");
-                alert(JSON.parse(JSON.stringify(_res.headers)).date);
+                var a = JSON.stringify(_res.headers));
+                var b = JSON.parse(a);
+                alert(b);
                 alert("_res data");
                 alert(_res.data);
 
