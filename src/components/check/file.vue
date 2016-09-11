@@ -66,6 +66,9 @@ export default {
             let data = this.student_file;
             let url = "/enroll/api/notify";
 
+            alert("data");
+            alert(data);
+
             this.notify = '正在查询 请稍候';
 
             this.$http.post(url, data, {
@@ -74,8 +77,8 @@ export default {
             .then((res) => {
                 let content = res.data.content;
                 
-                console.log("res.data");
-                console.log(res.data);
+                alert("res.data");
+                alert(res.data);
 
                 if (content == "该学生没有报过任何部门!") {
                     this.notify = '你还没有参与报名或信息填写错误';
@@ -132,7 +135,6 @@ export default {
                     this.applyData.student_file = this.student_file;
                     this.applyData.current_step = 2;
                 }
-
             }, (res) => {
                 this.notify = '网络有问题';
             });
