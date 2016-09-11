@@ -73,22 +73,26 @@ export default {
                 emulateJSON: true
             })
             .then((res) => {
-                let body = JSON.parse(res.body);
-                let content = body.content;
-                let status = body.status;
-                let body_extra = [];
+                let res_data = res;
+                if (typeof res_data === 'string') {
+                    res_data = JSON.parse(res_data);
+                }
 
-                if (body.extra) {
-                    body_extra = body.extra;
+                let content = res_data.content;
+                let status = res_data.status;
+                let res_data_extra = [];
+
+                if (res_data.extra) {
+                    res_data_extra = res_data.extra;
                 }
 
                 if (content == "该学生没有报过任何部门!") {
                     this.notify = '你还没有参与报名或信息填写错误';
                 }
 
-                if (status == 0 && body_extra) {
+                if (status == 0 && res_data_extra) {
                     this.notify = '查询成功'; 
-                    let extra =  body_extra;
+                    let extra =  res_data_extra;
                     let org = [];
 
                     org = extra.map((item, index) => {

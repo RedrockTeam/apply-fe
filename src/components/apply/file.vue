@@ -188,10 +188,13 @@ export default {
                 }
             })
             .then((res) => {
-                let body = JSON.parse(res.body);
+                let res_data = res;
+                if (typeof res_data === 'string') {
+                    res_data = JSON.parse(res_data);
+                }
 
-                if(body.extra) {
-                    let data = body.extra,
+                if(res_data.extra) {
+                    let data = res_data.extra,
                         org = [];
 
                     org = data.map((item, index) => {
@@ -206,7 +209,7 @@ export default {
                     this.show_file_cover = false;
                     this.applyData.exist_org = org;
                     this.applyData.current_step = 2;
-                } else if (body.content == "该学生没有报过任何部门!" || !body.extra) {
+                } else if (res_data.content == "该学生没有报过任何部门!" || !res_data.extra) {
                     this.is_query = false;
                     this.file_notify = '请将信息正确地填写完整';
                     this.show_file_cover = false;   

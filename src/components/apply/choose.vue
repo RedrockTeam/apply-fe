@@ -388,9 +388,13 @@ export default {
                         }
                     })
                     .then((res) => {
-                        let body = JSON.parse(res.body);
-                        let status_code = body.status,
-                            status_msg = body.content;
+                        let res_data = res;
+                        if (typeof res_data === 'string') {
+                            res_data = JSON.parse(res_data);
+                        }
+
+                        let status_code = res_data.status,
+                            status_msg = res_data.content;
 
                         switch (status_code) {
                             case 0:
