@@ -78,16 +78,30 @@ export default {
                     this.notify = '你还没有参与报名或信息填写错误';
                 }
 
-                alert('res 改了一下');
+                alert('res 全部');
+                alert(res);
+                alert('res 转字符');
                 let str = JSON.stringify(res);
+                alert(str);
+                alert("_res 再封装");
                 let _res = JSON.parse(str);
+                alert(_res);
+                alert("_res 数据类型");
+                alert(Object.prototype.toString.call(_res));
+                alert("_res header");
+                alert(_res.header);
+                alert("_res headers");
+                alert(_res.headers);
+                alert("_res data header");
+                alert(_res.data.header);
+                alert("_res data");
+                alert(_res.data);
 
                 // alert('_res');
                 // alert(JSON.stringify(_res));
                 alert('_res.data');
                 alert(JSON.stringify(_res.data));
-                alert("_res.data.headers");
-                alert(_res.data.headers);
+                alert("_res.data.status");
                 alert(_res.data.status == 0);
                 alert("_res['data']['status']");
                 alert(_res['data']['status']);
