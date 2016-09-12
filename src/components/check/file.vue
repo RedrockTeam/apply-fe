@@ -1,7 +1,7 @@
 <template>
     <section class="file">
         <p class="title">
-            输入身份信息
+            请输入身份信息
         </p>
 
         <p class="item">

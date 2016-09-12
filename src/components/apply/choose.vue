@@ -594,7 +594,7 @@ select {
     }
     .wrapper:first-of-type {
         padding-bottom: .1rem;
-        border-bottom: 1px dashed #ccc;
+        border-bottom: 1px solid #ccc;
     }
     .wrapper:last-of-type {
         padding-top: .2rem;
