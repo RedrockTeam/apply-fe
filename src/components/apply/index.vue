@@ -35,7 +35,8 @@ export default {
              *  exist_org       后台返回的已经报的部门
              */
             applyData: {
-                current_step: 1,
+                // current_step: 1,
+                current_step: 2,
                 student_file: {},
                 student_org: [],
                 remain_org: 3,

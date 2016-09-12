@@ -24,6 +24,10 @@
                             v-else>
                         {{choice.organization}}
                     </option>
+                    <option disabled="disabled" 
+                            v-if="!choice.removable">
+                        已报名成功的组织 不能修改
+                    </option>
                     <option v-for="organization in organizations" 
                             v-bind:value="organization.value"
                             v-if="choice.removable">
@@ -42,6 +46,10 @@
                     <option disabled="disabled" 
                             v-else>
                         {{choice.department}}
+                    </option>
+                    <option disabled="disabled" 
+                            v-if="!choice.removable">
+                        已报名成功的部门 不能修改
                     </option>
                     <option v-for="department in departments[choice.organization]"
                             v-bind:value="department" 
@@ -114,7 +122,7 @@ export default {
     watch: {
         'applyData.exist_org': function (new_value, old_value) {
             if (new_value.length != 0) {
-                this.choices = new_value;    
+                this.choices = new_value;  
             } else {
                 this.choices = [
                     {
